@@ -1,5 +1,68 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .row.column
+        .col-md-2.col-md-offset-1#tempLabel.chartLabel.well
+            h4.text-center 馆内温度
+            img#nodeImg.img-thumbnail(src="/images/node.png")
+            h4.text-center 21.3℃
+            h6.text-center 2014-02-28 12:00
+        .col-md-8#tempChart
+            ul.nav.nav-tabs
+                li.active(role="presentation")
+                    a(href="#") 实时
+                li(role="presentation")
+                    a(href="#") 最近1小时
+                li(role="presentation")
+                    a(href="#") 最近3小时
+                li(role="presentation")
+                    a(href="#") 最近1天
+                li(role="presentation")
+                    a(href="#") 最近1周
+                li(role="presentation")
+                    a(href="#") 最近1月
+            canvas#temp(width="600",height="300")
+    .row.column
+        .col-md-2.col-md-offset-1#humLabel.chartLabel.well
+            h4.text-center 馆内湿度
+            img#nodeImg.img-thumbnail(src="/images/node.png")
+            h4.text-center 43.1%
+            h6.text-center 2014-02-28 12:00
+        .col-md-8#humChart
+            ul.nav.nav-tabs
+                li.active(role="presentation")
+                    a(href="#") 实时
+                li(role="presentation")
+                    a(href="#") 最近1小时
+                li(role="presentation")
+                    a(href="#") 最近3小时
+                li(role="presentation")
+                    a(href="#") 最近1天
+                li(role="presentation")
+                    a(href="#") 最近1周
+                li(role="presentation")
+                    a(href="#") 最近1月
+            canvas#hum(width="600",height="400")
+    .row.column
+        .col-md-2.col-md-offset-1#countLabel.chartLabel.well
+            h4.text-center 馆内人数
+            img#nodeImg.img-thumbnail(src="/images/node.png")
+            h4.text-center 213
+            h6.text-center 2014-02-28 12:00
+        .col-md-8#countChart
+            ul.nav.nav-tabs
+                li.active(role="presentation")
+                    a(href="#") 实时
+                li(role="presentation")
+                    a(href="#") 最近1小时
+                li(role="presentation")
+                    a(href="#") 最近3小时
+                li(role="presentation")
+                    a(href="#") 最近1天
+                li(role="presentation")
+                    a(href="#") 最近1周
+                li(role="presentation")
+                    a(href="#") 最近1月
+            canvas#count(width="600",height="400")
+        
+    script(type='text/javascript', src='/js/status.js')
