@@ -1,21 +1,17 @@
 #container {
     margin-top: 40px;
 }
-
-#nodeImg{
+#nodeImg {
     clear: both;
     display: block;
-    margin:auto;
+    margin: auto;
 }
-
-.column{
+.column {
     padding: 10px;
 }
-
-.column2{
+.column2 {
     padding: 40px;
 }
-
-#loginBtn{
+#loginBtn {
     margin-top: 30px;
 }
