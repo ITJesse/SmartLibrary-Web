@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .row.column2
+        .col-md-4.col-md-offset-4
+            form(action='/login', method='post')
+                .form-group
+                    label.control-label.sr-only(for="studentId") 学号
+                    .input-group
+                        span.input-group-addon 学号
+                        input.input-lg.form-control(type="text",id="studentId",name="studentId",placeholder="请输入学号",value="#{studentId?studentId:''}")
+                .form-group
+                    label.control-label.sr-only(for="password") 密码
+                    .input-group
+                        span.input-group-addon 密码
+                        input.input-lg.form-control(type="password",id="password",name="password",placeholder="请输入密码",value="#{password?password:''}")
+                - if(error)
+                    p #{error}
+                .form-group
+                    input.btn.btn-primary.btn-block.btn-lg#loginBtn(type="submit",value="登陆")

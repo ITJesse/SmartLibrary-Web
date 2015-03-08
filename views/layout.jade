@@ -48,10 +48,12 @@ html
                                         a(href="#") One more separated link
                   
                     ul.nav.navbar-nav.navbar-right
-                        li
-                            a(href="/login") 登陆
-                        li
-                            a(href="/register") 注册
+                        - if(isLogin)
+                            li
+                                a(href="/logout") 登出
+                        - else
+                            li
+                                a(href="/login") 登陆
                             
         .container-fluid#container
             block content

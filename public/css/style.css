@@ -11,3 +11,11 @@
 .column{
     padding: 10px;
 }
+
+.column2{
+    padding: 40px;
+}
+
+#loginBtn{
+    margin-top: 30px;
+}
