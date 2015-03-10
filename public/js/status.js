@@ -1,24 +1,66 @@
-var chartWidth = $("#tempChart").width();
+$(document).ready(function() {
+    var chartWidth = $("#chartDiv").width();
+    var chartHeight = $("#chartDiv").height();
+    $("#chart").attr("width", chartWidth);
+    $("#chart").attr("height", chartWidth * 0.3);
+    $(".chartLabel").css("height", chartHeight + "px");
 
-$("canvas").attr("width", chartWidth);
-$("canvas").attr("height", chartWidth * 0.3);
-var chartHeight = $("#tempChart").height();
-$(".chartLabel").css("height", chartHeight + "px");
+    $('div#chart').each(function(i) {
+        var id = $(this).data("id");
+        $.ajax({
+            url: './api/GetChartVal',
+            type: 'get',
+            dataType: 'json',
+            data: 'id=' + id + '&startTime=',
+            renderTo: $(this),
+            success: function(res) {
+                this.renderTo.highcharts({
+                    chart: {
+                        type: 'spline',
+                        zoomType: 'x'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        type: 'datetime',
+                        dateTimeLabelFormats: {
+                            minute: '%H:%M'
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: ''
+                        },
 
-var tempCtx = $("#temp").get(0).getContext("2d");
-var humCtx = $("#hum").get(0).getContext("2d");
-var countCtx = $("#count").get(0).getContext("2d");
+                        minorGridLineWidth: 0,
+                        gridLineWidth: 1,
+                        alternateGridColor: null
+                    },
+                    tooltip: {
+                        formatter: function() {
+                            return '' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br><b>' + this.y + '</b>';
+                        }
+                    },
+                    plotOptions: {
+                        spline: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    series: [{
+                        data: res
+                    }],
+                    navigation: {
+                        menuItemStyle: {
+                            fontSize: '10px'
+                        }
+                    }
+                });
+            }
+        });
+    });
 
-var data = {
-    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
-    datasets: [{
-        fillColor: "rgba(220,220,220,0.5)",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        data: [21.6, 22.3, 23.3, 22.4, 21.9, 20.1, 21.6, 22.3, 23.3, 22.4, 21.9, 20.1, 21.6, 22.3, 23.3, 22.4, 21.9, 20.1]
-    }]
-}
-var tempChart = new Chart(tempCtx).Line(data);
-var humChart = new Chart(humCtx).Line(data);
-var countChart = new Chart(countCtx).Line(data);
+});

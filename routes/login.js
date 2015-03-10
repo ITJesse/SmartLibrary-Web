@@ -11,7 +11,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/', function(req, res) {
     res.render('login', {
-        title: '登陆'
+        title: '登陆',
+        isLogin: req.session.isLogin
     });
 });
 

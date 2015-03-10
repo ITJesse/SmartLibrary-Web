@@ -9,7 +9,7 @@ html
         script(type='text/javascript', src='/js/jquery.min.js')
         script(type='text/javascript', src='/bootstrap/js/bootstrap.min.js')
         script(type='text/javascript', src='/js/moment.min.js')
-        script(type='text/javascript', src='/js/Chart.min.js')
+        script(type='text/javascript', src='/js/highcharts.js')
     
     body
         nav.navbar.navbar-default
@@ -29,7 +29,7 @@ html
                             span.sr-only (current)
                         - if(isLogin)
                             li
-                                a(href="/") Link
+                                a(href="/record") 图书录入
                             li.dropdown
                                 a.dropdown-toggle(href="#",data-toggle="dropdown",role="button",aria-expanded="false") Dropdown
                                     span.caret

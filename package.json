@@ -13,6 +13,8 @@
     "express-session": "^1.10.3",
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
+    "mysql": "^2.5.5",
+    "node-mysql": "^0.4.2",
     "serve-favicon": "~2.2.0"
   }
 }

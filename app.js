@@ -8,6 +8,7 @@ var session = require('express-session');
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
+var getChartVal = require('./routes/getChartVal');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/login', login);
+app.use('/api/GetChartVal', getChartVal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
