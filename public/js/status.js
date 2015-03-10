@@ -63,4 +63,19 @@ $(document).ready(function() {
         });
     });
 
+    $('span#lastVal').each(function(i){
+        var id = $(this).data("id");
+        $.ajax({
+            url: './api/GetLastVal',
+            ype: 'get',
+            dataType: 'json',
+            data: 'id=' + id,
+            renderTo: $(this),
+            success: function(res){
+                this.renderTo.find('#sensorVal').text(res.value);
+                this.renderTo.find('#lastUpdate').text(moment(res.time).format('YYYY-MM-DD HH:mm:ss'));
+            }
+        });
+    });
+
 });

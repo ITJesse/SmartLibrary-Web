@@ -6,8 +6,9 @@ block content
             .col-md-2.col-md-offset-1.chartLabel.well
                 h4.text-center #{list[i].name}
                 img#nodeImg.img-thumbnail(src="/images/node.png")
-                h4.text-center#sensorVal(data-id="#{list[i].id}")
-                h6.text-center#lastUpdate(data-id="#{list[i].id}")
+                span#lastVal(data-id="#{list[i].id}")
+                    h4.text-center#sensorVal
+                    h6.text-center#lastUpdate
             .col-md-8#chartDiv
                 ul.nav.nav-tabs
                     li.active(role="presentation")
