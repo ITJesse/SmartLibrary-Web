@@ -1,4 +1,4 @@
-var showChart = function(renderTo, res){
+var showChart = function(renderTo, res) {
     renderTo.highcharts({
         chart: {
             type: 'spline',
@@ -67,7 +67,7 @@ $(document).ready(function() {
         });
     });
 
-    $('span#lastVal').each(function(i){
+    $('span#lastVal').each(function(i) {
         var id = $(this).data("id");
         $.ajax({
             url: './api/GetLastVal',
@@ -75,15 +75,15 @@ $(document).ready(function() {
             dataType: 'json',
             data: 'id=' + id,
             renderTo: $(this),
-            success: function(res){
+            success: function(res) {
                 this.renderTo.find('#sensorVal').text(res.value);
                 this.renderTo.find('#lastUpdate').text(moment(res.time).format('YYYY-MM-DD HH:mm:ss'));
             }
         });
     });
 
-    $('.timeSelect').on('click', function(){
-        $(this).parent().parent().find('li').each(function(){
+    $('.timeSelect').on('click', function() {
+        $(this).parent().parent().find('li').each(function() {
             $(this).removeClass('active');
         });
         $(this).parent().addClass('active');
@@ -94,7 +94,7 @@ $(document).ready(function() {
             type: 'get',
             dataType: 'json',
             data: 'id=' + chartId + '&startTime=' + startTime,
-            renderTo: $('div[data-id='+chartId+']'),
+            renderTo: $('div[data-id=' + chartId + ']'),
             success: function(res) {
                 showChart(this.renderTo, res);
             }
