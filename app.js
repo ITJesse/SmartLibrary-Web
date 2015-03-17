@@ -11,6 +11,7 @@ var login = require('./routes/login');
 var getChartVal = require('./routes/getChartVal');
 var getLastVal = require('./routes/getLastVal');
 var book = require('./routes/book');
+var student = require('./routes/student');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/login', login);
 app.use('/api/GetChartVal', getChartVal);
 app.use('/api/GetLastVal', getLastVal);
 app.use('/api', book);
+app.use('/api', student);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
