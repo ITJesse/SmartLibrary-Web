@@ -36,7 +36,7 @@ module.exports = function(sock){
             case "6":
                 var res = {};
                 res.mac = mac;
-                res.type = 8;
+                res.type = "8";
                 sql = "SELECT * FROM student_bind WHERE uid = '"+value+"'";
                 mysql.query(sql, function(err, rows){
                     if(err){
