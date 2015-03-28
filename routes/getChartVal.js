@@ -11,8 +11,15 @@ router.get('/', function(req, res, next) {
     mysql.query(sql, function(err, rows) {
         if (err) return console.log(err);
         var data = [];
-        for (var i in rows) {
-            data[i] = [rows[i].time, parseFloat(rows[i].value)];
+        if(rows.length > 100){
+            var radio = Math.floor(rows.length / 100);
+            for(var i = 0; i < 100 * radio; i = i + radio){
+                data.push([rows[i].time, parseFloat(rows[i].value)]);
+            }
+        }else{
+            for(var i in rows){
+                data.push([rows[i].time, parseFloat(rows[i].value)]);
+            }
         }
         res.json(data);
     });
