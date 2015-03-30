@@ -2,28 +2,29 @@ extends layout
 
 block content
     - for(var i in list)
-        .row.column
-            .col-md-2.col-md-offset-1.chartLabel.well
-                h4.text-center #{list[i].name}
-                img#nodeImg.img-thumbnail(src="/images/node.png")
-                span#lastVal(data-id="#{list[i].id}")
-                    h4.text-center#sensorVal
-                    h6.text-center#lastUpdate
-            .col-md-8#chartDiv
-                a(href="#",name="#{list[i].id}",id="#{list[i].id}",style="display: none;")
-                ul.nav.nav-tabs
-                    li.active(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="",data-chartId="#{list[i].id}") 实时
-                    li(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="#{1 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1小时
-                    li(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="#{3 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近3小时
-                    li(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="#{24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1天
-                    li(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="#{7 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1周
-                    li(role="presentation")
-                        a.timeSelect(href="##{list[i].id}",data-startTime="#{30 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1月
-                #chart(data-id="#{list[i].id}")
-        
+        - if(list[i].id <= 3 || list[i].id >= 12)
+            .row.column
+                .col-md-2.col-md-offset-1.chartLabel.well
+                    h4.text-center #{list[i].name}
+                    img#nodeImg.img-thumbnail(src="/images/node.png")
+                    span#lastVal(data-id="#{list[i].id}")
+                        h4.text-center#sensorVal
+                        h6.text-center#lastUpdate
+                .col-md-8#chartDiv
+                    a(href="#",name="#{list[i].id}",id="#{list[i].id}",style="display: none;")
+                    ul.nav.nav-tabs
+                        li.active(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="",data-chartId="#{list[i].id}") 实时
+                        li(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="#{1 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1小时
+                        li(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="#{3 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近3小时
+                        li(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="#{24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1天
+                        li(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="#{7 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1周
+                        li(role="presentation")
+                            a.timeSelect(href="##{list[i].id}",data-startTime="#{30 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1月
+                    #chart(data-id="#{list[i].id}")
+
     script(type='text/javascript', src='/js/status.js')
