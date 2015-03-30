@@ -34,6 +34,7 @@ module.exports = function(sock){
             case "4":
             case "5":
             case "6":
+            case "12":
                 var res = {};
                 res.mac = mac;
                 res.type = "8";
