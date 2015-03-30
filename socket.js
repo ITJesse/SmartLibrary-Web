@@ -27,6 +27,7 @@ module.exports = function(sock){
             case "2":
             case "3":
             case "12":
+            case "13":
                 sql = "INSERT INTO xbee_data (mac, type, value) VALUES ('"+mac+"', '"+type+"', '"+value+"')";
                 mysql.query(sql, function(err){
                     if(err) return console.log(err);
