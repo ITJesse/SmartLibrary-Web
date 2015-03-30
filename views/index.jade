@@ -2,7 +2,7 @@ extends layout
 
 block content
     - for(var i in list)
-        - if(list[i].id <= 3 || list[i].id >= 12)
+        - if(list[i].type <= 3 || list[i].type >= 12)
             .row.column
                 .col-md-2.col-md-offset-1.chartLabel.well
                     h4.text-center #{list[i].name}
