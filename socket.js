@@ -16,11 +16,7 @@ module.exports = function(sock){
 
     sock.on('data', function(data) {
         console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        try{
-            var json = JSON.parse(data);
-        }catch(e){
-            console.log(e);
-        }
+        var json = JSON.parse(data);
         var mac = json.mac;
         var type = json.type;
         var value = json.value;
