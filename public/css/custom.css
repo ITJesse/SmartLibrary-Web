@@ -30,3 +30,16 @@ form .control-group .controls-row .btn.special {margin-left: 10px;}
 	form .control-group .controls-row [class*="span"] {margin-left: 0 !important;}
 	form .control-group .controls-row .btn.special {margin-left: 0px;}
 }
+
+.simple-chart {
+	height: 230px;
+	width:100%;
+	margin-top: 10px;
+}
+
+.chart-loading {
+	clear: both;
+	display: block;
+	margin: auto;
+	padding-top: 90px;
+}

@@ -66,10 +66,16 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+    switch(err.status){
+        case 404:
+            res.render('404');
+            break;
+        case 403:
+            res.render('403');
+            break;
+        default:
+            res.render('500');
+    }
 });
 
 

@@ -15,7 +15,8 @@ block content
                                     span #{list[i].name}
                                 a.minimize(href="#") 收起      
                             .panel-body
-                                .simple-chart(style="height: 230px; width:100%; margin-top: 10px;", data-sensorId="#{list[i].id}")
+                                .simple-chart(data-sensorId="#{list[i].id}")
+                                    img.chart-loading(src="images/loaders/circular/054.gif",alt="加载中")
                                 
 block footer
     script(type="text/javascript", src="js/json-charts.js")

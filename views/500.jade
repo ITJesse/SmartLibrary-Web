@@ -1,0 +1,56 @@
+doctype transitional
+html(xmlns="http://www.w3.org/1999/xhtml")
+    head
+        meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+        |     
+        title 智慧图书馆
+        |     
+        // Mobile Specific Metas
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        // Force IE9 to render in normla mode
+        meta(http-equiv="X-UA-Compatible" content="IE=edge")
+        // Le styles
+        link(href="css/bootstrap/bootstrap.css" rel="stylesheet")
+        |     
+        link(href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet")
+        |     
+        link(href="css/icons.css" rel="stylesheet" type="text/css")
+        // Main stylesheets
+        link(href="css/main.css" rel="stylesheet" type="text/css")
+    
+    body.errorPage
+        .container-fluid
+            .errorContainer
+                .page-header
+                    h1.center 500
+                |             
+                h2.center 服务器错误
+                |             
+                .center
+                    a.btn.btn-default(href="javascript: history.go(-1)" style="margin-right:10px;")
+                        span.icon16.icomoon-icon-arrow-left-10
+                        | 返回
+                    |                 
+                    a.btn.btn-default(href="/")
+                        span.icon16.icomoon-icon-screen
+                        | 主页
+        // End .container
+        //
+            Le javascript
+            ==================================================
+        script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
+        |     
+        script(type="text/javascript" src="js/bootstrap/bootstrap.js")
+        |   
+        |      
+        script(type="text/javascript").
+            // document ready function
+            $(document).ready(function() {
+            //------------- Some fancy stuff in error pages -------------//
+            $('.errorContainer').hide();
+            $('.errorContainer').fadeIn(1000).animate({
+            'top': "50%", 'margin-top': +($('.errorContainer').height()/-2-30)
+            }, {duration: 750, queue: false}, function() {
+            // Animation complete.
+            });
+            });
