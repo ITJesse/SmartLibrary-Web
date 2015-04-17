@@ -1,59 +1,160 @@
 doctype html
 html
     head
-        title= title
-        link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/bootstrap/css/bootstrap-theme.min.css')
-        link(rel='stylesheet', href='/css/style.css')
-
-        script(type='text/javascript', src='/js/jquery.min.js')
-        script(type='text/javascript', src='/bootstrap/js/bootstrap.min.js')
-        script(type='text/javascript', src='/js/moment.min.js')
-        script(type='text/javascript', src='/js/highcharts.js')
-    
+        meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+        title 智慧图书馆
+        // Mobile Specific Metas
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        // Core stylesheets do not remove
+        link#bootstrap(href="css/bootstrap/bootstrap.css", rel="stylesheet", type="text/css")
+        link(href="css/bootstrap/bootstrap-theme.css", rel="stylesheet", type="text/css")
+        link(href="css/supr-theme/jquery.ui.supr.css", rel="stylesheet", type="text/css")
+        link(href="css/icons.css", rel="stylesheet", type="text/css")
+        // Plugins stylesheets
+        link(href="plugins/misc/qtip/jquery.qtip.css", rel="stylesheet", type="text/css") 
+        link(href="plugins/misc/fullcalendar/fullcalendar.css", rel="stylesheet", type="text/css")
+        link(href="plugins/misc/search/tipuesearch.css", type="text/css", rel="stylesheet")
+        link(href="plugins/forms/uniform/uniform.default.css", type="text/css", rel="stylesheet")
+        // Main stylesheets
+        link(href="css/main.css", rel="stylesheet", type="text/css")
+        // Custom stylesheets ( Put your own changes here )
+        link(href="css/custom.css", rel="stylesheet", type="text/css")
+        // Load modernizr first
+        script(type="text/javascript", src="js/libs/modernizr.js")
     body
-        nav.navbar.navbar-default
-            .container-fluid
+        // loading animation
+        #qLoverlay
+        #qLbar
+        #header
+            nav.navbar.navbar-default(role="navigation")
                 .navbar-header
-                    button.navbar-toggle.collapsed(type="button",data-toggle="collapse",data-target="#bs-example-navbar-collapse-1")
-                        span.sr-only 展开菜单
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href="/") 智慧图书馆
-          
-                .collapse.navbar-collapse#bs-example-navbar-collapse-1
+                    a.navbar-brand(href="/") 智慧图书馆       
+                    button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-ex1-collapse")
+                        span.sr-only Toggle navigation
+                        span.icon16.icomoon-icon-arrow-4
+                .collapse.navbar-collapse.navbar-ex1-collapse
                     ul.nav.navbar-nav
                         li.active
-                            a(href="/") 状态
-                            span.sr-only (current)
-                        - if(isLogin)
+                            a(href="/")
+                                span.icon16.icomoon-icon-screen-2
+                                span.txt  总览
+                    ul.nav.navbar-right.usernav
+                        li
+                            a.dropdown-toggle.avatar(href="#", data-toggle="dropdown")
+                                img.image(src="images/avatar.jpg", alt="")
+                                span.txt admin@supr.com
+                        li
+                            a(href="index.html")
+                                span.icon16.icomoon-icon-exit
+                                span.txt  登出
+        #wrapper
+            // Responsive navigation button
+            .resBtn
+                a(href="#")
+                    span.icon16.minia-icon-list-3
+            // Sidebar background
+            #sidebarbg
+            // Sidebar content
+            #sidebar
+                .sidenav
+                    .sidebar-widget(style="margin: -1px 0 0 0;")
+                        h5.title(style="margin-bottom:0") 管内信息
+
+                    .mainnav
+                        ul
                             li
-                                a(href="/record") 图书录入
-                            li.dropdown
-                                a.dropdown-toggle(href="#",data-toggle="dropdown",role="button",aria-expanded="false") Dropdown
-                                    span.caret
-                                ul.dropdown-menu(role="menu")
-                                    li
-                                        a(href="#") Action
-                                    li
-                                        a(href="#") Another action
-                                    li
-                                        a(href="#") Something else here
-                                    li.divider
-                                    li
-                                        a(href="#") Separated link
-                                    li.divider
-                                    li
-                                        a(href="#") One more separated link
-                  
-                    ul.nav.navbar-nav.navbar-right
-                        - if(isLogin)
+                                a(href="/")
+                                    span.icon16.icomoon-icon-list
+                                    | 总览
                             li
-                                a(href="/logout") 登出
-                        - else
+                                a(href="/environment")
+                                    span.icon16.icomoon-icon-stats-up
+                                    | 环境监测
                             li
-                                a(href="/login") 登陆
-                            
-        .container-fluid#container
-            block content
+                                a(href="/security")
+                                    span.icon16.icomoon-icon-table-2
+                                    | 安防监测
+                            li
+                                a(href="/switch")
+                                    span.icon16.icomoon-icon-equalizer-2
+                                    | 开关控制
+                    .sidebar-widget(style="margin: -1px 0 0 0;")
+                        h5.title(style="margin-bottom:0") 图书相关
+
+                    .mainnav
+                        ul
+                            li
+                                a(href="/search")
+                                    span.icon16.typ-icon-search
+                                    | 书籍查询
+                            li
+                                a(href="/borrow")
+                                    span.icon16.iconic-icon-book-alt
+                                    | 借阅查询
+
+                .sidebar-widget
+                    h5.title 座位占用
+                    .content
+                        span.icon16.icomoon-icon-book.left
+                        .progress.progress-mini.left.tip(title="16%")
+                            .progress-bar.progress-bar-success(style="width: 16%;")
+                        span.percent 16%
+                        .stat 160 / 1000
+
+                .sidebar-widget
+                    h5.title 每日统计
+                    .content
+                        .rightnow
+                            ul.list-unstyled
+                                li
+                                    span.number 340
+                                    span.icon16.icomoon-icon-man
+                                    | 入馆人数
+                                li
+                                    span.number 580
+                                    span.icon16.icomoon-icon-books
+                                    | 借书总数
+                                li
+                                    span.number 120
+                                    span.icon16.icomoon-icon-book
+                                    | 自习总数
+            
+            block content                
+
+            script(type="text/javascript", src="js/jquery/jquery.min.js")
+            script(type="text/javascript", src="js/jquery-ui/jquery-ui.min.js")
+            script(type="text/javascript", src="js/libs/jquery-migrate.min.js")
+            script(type="text/javascript", src="js/bootstrap/bootstrap.js")
+            script(type="text/javascript", src="js/libs/jquery.mousewheel.js")
+            script(type="text/javascript", src="js/libs/jRespond.min.js")
+                
+            // Charts plugins
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.js")
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.grow.js")
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.pie.js")
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.resize.js")
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.tooltip_0.4.4.js")
+            script(type="text/javascript", src="plugins/charts/flot/jquery.flot.orderBars.js")
+            script(type="text/javascript", src="plugins/charts/sparkline/jquery.sparkline.min.js")
+            // Sparkline plugin
+            script(type="text/javascript", src="plugins/charts/knob/jquery.knob.js")
+            // Circular sliders and stats
+            // Misc plugins
+            script(type="text/javascript", src="plugins/misc/fullcalendar/fullcalendar.min.js")
+            // Calendar plugin
+            script(type="text/javascript", src="plugins/misc/qtip/jquery.qtip.min.js")
+            // Custom tooltip plugin
+            script(type="text/javascript", src="plugins/misc/totop/jquery.ui.totop.min.js")
+            // Back to top plugin
+            // Search plugin
+            script(type="text/javascript", src="plugins/misc/search/tipuesearch_set.js")
+            script(type="text/javascript", src="plugins/misc/search/tipuesearch_data.js")
+            // JSON for searched results
+            script(type="text/javascript", src="plugins/misc/search/tipuesearch.js")
+            // Form plugins
+            script(type="text/javascript", src="plugins/forms/uniform/jquery.uniform.min.js")
+            // Init plugins
+            script(type="text/javascript", src="js/main.js")
+            // Core js functions
+            
+            block footer

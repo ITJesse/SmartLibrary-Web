@@ -1,30 +1,59 @@
 extends layout
 
 block content
-    - for(var i in list)
-        - if(list[i].type <= 3 || list[i].type >= 12)
-            .row.column
-                .col-md-2.col-md-offset-1.chartLabel.well
-                    h4.text-center #{list[i].name}
-                    img#nodeImg.img-thumbnail(src="/images/node.png")
-                    span#lastVal(data-id="#{list[i].id}")
-                        h4.text-center#sensorVal
-                        h6.text-center#lastUpdate
-                .col-md-8#chartDiv
-                    a(href="#",name="#{list[i].id}",id="#{list[i].id}",style="display: none;")
-                    ul.nav.nav-tabs
-                        li.active(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="",data-chartId="#{list[i].id}") 实时
-                        li(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="#{1 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1小时
-                        li(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="#{3 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近3小时
-                        li(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="#{24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1天
-                        li(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="#{7 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1周
-                        li(role="presentation")
-                            a.timeSelect(href="##{list[i].id}",data-startTime="#{30 * 24 * 60 * 60 * 1000}",data-chartId="#{list[i].id}") 最近1月
-                    #chart(data-id="#{list[i].id}")
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            // Content wrapper
+            .row
+                .col-lg-8
+                    .panel.panel-default.chart.gradient
+                        .panel-heading
+                            h4
+                                span.icon16.icomoon-icon-bars
+                                span 访客趋势
+                        .panel-body(style="padding-bottom:0;")
+                            .visitors-chart(style="height: 230px;width:100%;margin-top:15px; margin-bottom:15px;")
+                            ul.chartShortcuts
+                                li
+                                    a(href="#")
+                                        span.head 网站访客
+                                        span.number 5090
+                                li
+                                    a(href="#")
+                                        span.head 图书馆访客
+                                        span.number 10248
+                .col-lg-4
+                    .centerContent
+                        .circle-stats(dir="ltr")
+                            .circular-item.tipB(title="温度")
+                                span.icon.silk-icon-wand
+                                input.redCircle(type="text", value="28")
+                            .circular-item.tipB(title="湿度")
+                                span.icon.silk-icon-drops
+                                input.blueCircle(type="text", value="64")
+                            .circular-item.tipB(title="亮度")
+                                span.icon.silk-icon-sun
+                                input.greenCircle(type="text", value="84")
+                                    
+                .col-lg-4
+                    .page-header
+                        h4 日历
+                    #datepicker-inline
+                        
+                //- .col-lg-4
+                //-     .sparkStats
+                //-         h4 389 人访问了此页面
+                //-         ul.list-unstyled
+                //-             li
+                //-                 | 访客：
+                //-                 span.number 509
+                //-             li
+                //-                 | 馆藏书籍：
+                //-                 span.number 53875
+                //-             li
+                //-                 | 可借书籍：
+                //-                 span.number 14389
 
-    script(type='text/javascript', src='/js/status.js')
+block footer
+    script(type="text/javascript", src="js/index.js")

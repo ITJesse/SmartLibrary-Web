@@ -15,5 +15,17 @@ router.get('/', function(req, res, next) {
         });
     });
 });
+/* GET home page. */
+router.get('/environment', function(req, res, next) {
+    var sql = "SELECT * FROM xbee_list WHERE is_admin = 0";
+    mysql.query(sql, function(err, rows) {
+        if (err) return console.log(err);
+        res.render('environment', {
+            title: 'Express',
+            isLogin: req.session.isLogin,
+            list: rows
+        });
+    });
+});
 
 module.exports = router;

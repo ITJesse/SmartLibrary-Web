@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            // Content wrapper
+            - for(var i in list)
+                .row
+                    .col-lg-12
+                        .panel.panel-default.chart
+                            .panel-heading
+                                h4
+                                    span.icon16.icomoon-icon-bars       
+                                    span #{list[i].name}
+                                a.minimize(href="#") 收起      
+                            .panel-body
+                                .simple-chart(style="height: 230px; width:100%; margin-top: 10px;", data-sensorId="#{list[i].id}")
+                                
+block footer
+    script(type="text/javascript", src="js/json-charts.js")
