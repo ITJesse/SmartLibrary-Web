@@ -12,6 +12,7 @@ var getChartVal = require('./routes/getChartVal');
 var getLastVal = require('./routes/getLastVal');
 var book = require('./routes/book');
 var student = require('./routes/student');
+var android = require('./routes/android');
 
 var app = express();
 
@@ -36,10 +37,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/login', login);
-app.use('/api/GetChartVal', getChartVal);
-app.use('/api/GetLastVal', getLastVal);
-app.use('/api', book);
-app.use('/api', student);
+
+//客户端部分API路由
+app.use('/API/Client', book);
+app.use('/API/Client', student);
+
+//Web部分API路由
+app.use('/API/Web/GetChartVal', getChartVal);
+app.use('/API/Web/GetLastVal', getLastVal);
+
+//APP部分API路由
+app.all('/API/Android/*', android.checkSignString);
+app.post('/API/Android/Login', android.Login);
+app.post('/API/Android/ForgetPass', android.forgetPass);
+app.post('/API/Android/LibraryHot', android.libraryHot);
+app.post('/API/Android/LibraryBorrow', android.libraryBorrow);
+app.post('/API/Android/LibraryBookList', android.libraryBookList);
+app.post('/API/Android/LibraryBookInfo', android.libraryBookInfo);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

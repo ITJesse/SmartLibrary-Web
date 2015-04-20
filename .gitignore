@@ -1,2 +1,4 @@
 modules/config.js
 node_modules
+
+*.out
