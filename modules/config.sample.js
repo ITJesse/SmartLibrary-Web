@@ -13,7 +13,7 @@ exports.mongodb = {
 };
 
 exports.android = {
-	salt: 'withelper_itjesse'
+    salt: 'withelper_itjesse'
 };
 
 exports.common = {
