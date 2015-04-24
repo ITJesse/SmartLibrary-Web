@@ -35,7 +35,7 @@ router.get('/GetCardInfo', function(req, res) {
             result = {error: null, info: rows[0]};
             return res.json(result);
         }else{
-            result = {error: "-4"};
+            result = {error: "-9"};
             return res.json(result);
         }
     });

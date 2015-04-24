@@ -198,15 +198,14 @@ exports.checkUserMySQL = function(userID, password, callback){
 //检查SessionID
 exports.checkSessionID = function(sessionid, callback){
 	if(!sessionid){
-		result.error = 'Empty SessionID';
-		return res.json(result);
+		return callback('Empty SessionID');
 	}
 	userSession.findOne({'sessionID': sessionid}, 'userID password', function(err, doc){
 		if(err) return callback(err);
 		if(!doc){
 			return callback('Wrong SessionID');
 		}else{
-			return callback(null,doc.userID,doc.password);
+			return callback(null, doc.userID, doc.password);
 		}
 	});
 }

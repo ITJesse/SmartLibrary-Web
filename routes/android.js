@@ -57,20 +57,30 @@ exports.libraryBorrow = function(req, res){
 		return res.json(result);
 	}
 	common.checkSessionID(sessionID, function(err, userID){
-		if(err){
+		if(err && err = 'Wrong SessionID'){
+			result.error = '-5';
+			return res.json(result);
+		}else if(err && err = 'Empty SessionID'){
+			result.error = '-7';
+			return res.json(result);
+		}else if(err){
 			console.log(err);
 			result.error = '-5';
 			return res.json(result);
 		}
 		common.fetchLibraryBorrow(userID, password, function(err, data){
-			if(err){
+			if(err && err == 'Wrong password!'){
+				result.error = '-3';
+				return res.json(result);
+			}else if(err){
 				console.log(err);
 				result.error = '-5';
 				return res.json(result);
+			}else{
+				result.error = null;
+				result.borrow = data;
+				return res.json(result);
 			}
-			result.error = null;
-			result.borrow = data;
-			return res.json(result);
 		});
 	});
 };

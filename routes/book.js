@@ -78,7 +78,7 @@ router.get('/GetTagInfo', function(req, res) {
             result = {error: null, info: rows[0]};
             return res.json(result);
         }else{
-            result = {error: "-4"};
+            result = {error: "-10"};
             return res.json(result);
         }
     });
@@ -98,7 +98,7 @@ router.post('/LendBook', function(req, res) {
                         callback(err);
                     }
                     else if(!rows[0]){
-                        callback('none user');
+                        callback('none uid');
                     }
                     else{
                         callback(null, rows[0].studentId);
@@ -107,6 +107,20 @@ router.post('/LendBook', function(req, res) {
             }else{
                 callback(null, req.body.studentId);
             }
+        },
+        function(studentId, callback) {
+            var sql = "SELECT * FROM wit_user WHERE studentId = '"+studentId+"'";
+            mysql.query(sql, function(err, rows){
+                if(err){
+                    callback(err);
+                }
+                else if(!rows[0]){
+                    callback('none studentId');
+                }
+                else{
+                    callback(null, studentId);
+                }
+            });
         },
         function(studentId, callback) {
             var sql = "SELECT * FROM lend WHERE studentId = '"+studentId+"' AND isReturn = 0";
@@ -178,7 +192,10 @@ router.post('/LendBook', function(req, res) {
         if(err && err == 'max'){
             result.error = '-6';
         }
-        else if(err && err == 'none user'){
+        else if(err && err == 'none uid'){
+            result.error = '-9';
+        }
+        else if(err && err == 'none studentId'){
             result.error = '-4';
         }
         else if(err){
@@ -226,22 +243,36 @@ router.get('/Lookup', function(req, res) {
     async.waterfall([
         function(callback) {
             if(type == 'uid'){
-                var uid = req.query.uid;
+                var uid = req.body.uid;
                 var sql = "SELECT studentId FROM student_bind WHERE uid = '"+uid+"'";
                 mysql.query(sql, function(err, rows){
                     if(err){
                         callback(err);
                     }
                     else if(!rows[0]){
-                        callback('none user');
+                        callback('none uid');
                     }
                     else{
                         callback(null, rows[0].studentId);
                     }
                 });
             }else{
-                callback(null, req.query.studentId);
+                callback(null, req.body.studentId);
             }
+        },
+        function(studentId, callback) {
+            var sql = "SELECT * FROM wit_user WHERE studentId = '"+studentId+"'";
+            mysql.query(sql, function(err, rows){
+                if(err){
+                    callback(err);
+                }
+                else if(!rows[0]){
+                    callback('none studentId');
+                }
+                else{
+                    callback(null, studentId);
+                }
+            });
         },
         function(studentId, callback) {
             var sql = "SELECT * FROM lend_view WHERE studentId = '"+studentId+"' AND isReturn = 0";
@@ -255,14 +286,23 @@ router.get('/Lookup', function(req, res) {
             });
         }
     ],function(err, rows){
-        if(err){
+        result = {};
+        if(err && err == 'none uid'){
+            result.error = '-9';
+        }
+        else if(err && err == 'none studentId'){
+            result.error = '-4';
+        }
+        else if(err){
             console.log(err);
-            result = {error: "-5"};
-            return res.json(result);
-        }else{
-            result = {error: null, list: rows};
+            result.error = "-5";
             return res.json(result);
         }
+        else{
+            result.error = null;
+        }
+        result.list = rows;
+        res.json(result);
     });
 });
 
