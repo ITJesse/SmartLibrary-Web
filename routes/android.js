@@ -57,10 +57,10 @@ exports.libraryBorrow = function(req, res){
 		return res.json(result);
 	}
 	common.checkSessionID(sessionID, function(err, userID){
-		if(err && err = 'Wrong SessionID'){
+		if(err && err == 'Wrong SessionID'){
 			result.error = '-5';
 			return res.json(result);
-		}else if(err && err = 'Empty SessionID'){
+		}else if(err && err == 'Empty SessionID'){
 			result.error = '-7';
 			return res.json(result);
 		}else if(err){
