@@ -15,3 +15,7 @@ exports.mongodb = {
 exports.android = {
 	salt: 'withelper_itjesse'
 };
+
+exports.common = {
+    cookieSecret: 'KJH&^*&HJK'
+}

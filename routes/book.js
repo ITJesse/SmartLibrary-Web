@@ -16,12 +16,13 @@ router.post('/InsertBook', function(req, res) {
 
     var sql = "INSERT INTO book (tagId, isbn, title, author, publisher, summary, image) VALUES ('" + tagId + "', '" + isbn + "', '" + title + "', '" + author + "', '" + publisher + "', '" + summary + "', '" + image + "')";
     mysql.query(sql, function(err) {
-        if (err) {
+        if(err){
             console.log(err);
-            return res.send('-1');
-        } else {
-            return res.send('1');
+            result = {error: "-5"};
+            return res.json(result);
         }
+        result = {error: null, result: 'ok'};
+        return res.json(result);
     });
 });
 
@@ -29,15 +30,17 @@ router.get('/CheckTagId', function(req, res) {
     var tagId = req.query.tagId;
     var sql = "SELECT tagId FROM book WHERE tagId = '" + tagId + "'";
     mysql.query(sql, function(err, rows) {
-        if (err) {
+        if(err){
             console.log(err);
-            return res.send('-1');
-        } else {
-            if (rows[0]) {
-                return res.send('-1');
-            } else {
-                return res.send('1');
-            }
+            result = {error: "-5"};
+            return res.json(result);
+        }
+        if(rows[0]){
+            result = {error: null, check: '1'};
+            return res.json(result);
+        }else{
+            result = {error: null, check: '-1'};
+            return res.json(result);
         }
     });
 });
@@ -45,9 +48,10 @@ router.get('/CheckTagId', function(req, res) {
 router.get('/GetBookList', function(req, res) {
     var sql = "SELECT title, author, isbn, publisher, time FROM book";
     mysql.query(sql, function(err, rows) {
-        if (err) {
+        if(err){
             console.log(err);
-            return res.send('-1');
+            result = {error: "-5"};
+            return res.json(result);
         } else {
             var tableData = {
                 data: []
@@ -55,7 +59,8 @@ router.get('/GetBookList', function(req, res) {
             for (var i in rows) {
                 tableData.data[i] = [rows[i].title, rows[i].author, rows[i].isbn, rows[i].publisher, moment(rows[i].time).format('YYYY-MM-DD')];
             }
-            return res.json(tableData);
+            result = {error: null, table: tableData};
+            return res.json(result);
         }
     });
 });
@@ -64,11 +69,16 @@ router.get('/GetTagInfo', function(req, res) {
     var tagId = req.query.tagId;
     var sql = "SELECT title, author, isbn, publisher FROM book WHERE tagId = '"+tagId+"'";
     mysql.query(sql, function(err, rows) {
-        if (err) return console.log(err);
+        if(err){
+            console.log(err);
+            result = {error: "-5"};
+            return res.json(result);
+        }
         if(rows[0]){
-            return res.json(rows[0]);
+            result = {error: null, info: rows[0]};
+            return res.json(result);
         }else{
-            result = {error: "-1"};
+            result = {error: "-4"};
             return res.json(result);
         }
     });
@@ -166,18 +176,20 @@ router.post('/LendBook', function(req, res) {
     ], function (err, result) {
         result = {};
         if(err && err == 'max'){
-            result.error = '-3';
+            result.error = '-6';
         }
         else if(err && err == 'none user'){
-            result.error = '-2';
+            result.error = '-4';
         }
         else if(err){
             console.log(err);
-            result.error = '-1';
+            result = {error: "-5"};
+            return res.json(result);
         }
         else{
             result.error = null;
         }
+        result.result = 'ok';
         res.json(result);
     });
 });
@@ -200,9 +212,11 @@ router.post('/ReturnBook', function(req, res) {
     }, function(err){
         if(err){
             console.log(err);
-            res.send('-1');
+            result = {error: "-5"};
+            return res.json(result);
         }else{
-            res.send('1');
+            result = {error: null, result: 'ok'};
+            return res.json(result);
         }
     });
 });
@@ -243,11 +257,11 @@ router.get('/Lookup', function(req, res) {
     ],function(err, rows){
         if(err){
             console.log(err);
-            var result = {};
-            result.error = '-1';
-            res.json(result);
+            result = {error: "-5"};
+            return res.json(result);
         }else{
-            res.json(rows);
+            result = {error: null, list: rows};
+            return res.json(result);
         }
     });
 });

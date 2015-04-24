@@ -25,7 +25,7 @@ exports.checkSignString = function(req, res, next) {
 	var signTrue = crypto.createHash('md5').update(salt+timestamp).digest('hex').toUpperCase();
 	if(sign != signTrue){
 		var result = {};
-		result.error = 'Bad sign string';
+		result.error = '-2';
 		return res.json(result);
 	}
 	next();
@@ -37,7 +37,8 @@ exports.libraryHot = function(req, res){
 	var result = {};
 	common.fetchLibraryHot(classNum, function(err, data){
 		if(err){
-			result.error = err;
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
 		}
 		result.error = null;
@@ -52,17 +53,19 @@ exports.libraryBorrow = function(req, res){
 	var password = checkStr(req.body.password);
 	var result = {};
 	if(!sessionID){
-		result.error = 'Maybe Inject';
+		result.error = '-1';
 		return res.json(result);
 	}
-	checkSessionID(sessionID, function(err, userID){
+	common.checkSessionID(sessionID, function(err, userID){
 		if(err){
-			result.error = err;
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
 		}
 		common.fetchLibraryBorrow(userID, password, function(err, data){
 			if(err){
-				result.error = err;
+				console.log(err);
+				result.error = '-5';
 				return res.json(result);
 			}
 			result.error = null;
@@ -80,12 +83,13 @@ exports.libraryBookList = function(req, res){
 	var doctype = checkStr(req.body.doctype);
 	var result = {};
 	if(!str){
-		result.error = 'Maybe Inject';
+		result.error = '-1';
 		return res.json(result);
 	}
 	common.fetchLibraryBookList(str, strSearchType, match_flag, doctype, function(err, data){
 		if(err){
-			result.error = err;
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
 		}
 		result.error = null;
@@ -96,21 +100,20 @@ exports.libraryBookList = function(req, res){
 
 //书目详情
 exports.libraryBookInfo = function(req, res){
-	var marc_no = req.body.marc_no;
-	if(!marc_no){
-		result.error = 'Maybe Inject';
+	var isbn = req.body.isbn;
+	var result = {};
+	if(!isbn){
+		result.error = '-1';
 		return res.json(result);
 	}
-	var result = {};
-	common.fetchLibraryBookInfo(marc_no, function(err,image,link,summary){
+	common.fetchLibraryBookInfo(isbn, function(err, info){
 		if(err){
-			result.error = err;
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
 		}
 		result.error = null;
-		result.image = image;
-		result.link = link;
-		result.summary = summary;
+		result.info = info;
 		return res.json(result);
 	});
 };
@@ -118,26 +121,18 @@ exports.libraryBookInfo = function(req, res){
 //热门检索词
 exports.libraryHotWords = function(req, res){
 	var result = {};
-	common.fetchLibraryHotWordsMongo(function(err, data){
-		if(err && err != 'Expired'){
-			result.error = err;
+	common.fetchLibraryHotWords(function(err, data) {
+		var result = {};
+		if(err){
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
-		}else if(err == 'Expired'){
-			common.fetchLibraryHotWordsCurl(function(err, data){
-				if(err){
-					result.error = err;
-					return res.json(result);
-				}
-				result.error = null;
-				//result.data = data;
-				console.log(data);
-				return res.json(result);;
-			});
 		}else{
-			result.error = err;
+			result.error = null;
+			result.data = data;
 			return res.json(result);
 		}
-	});
+	})
 };
 
 //登陆
@@ -146,24 +141,26 @@ exports.Login = function(req, res) {
 	var password = checkStr(req.body.password);
 	var result = {};
 	if(!password || !userID){
-		result.error = 'Maybe Inject';
+		result.error = '-1';
 		return res.json(result);
 	}
 	common.checkUserMySQL(userID, password, function(err, sign){
 		if(err && err != 'Wrong password or username'){
-			result.error = err;
+			result.error = '-3';
 			return res.json(result);
 		}
 		if(!sign){
 			common.checkUserCurl(userID, password, function(err, sign){
 				if(err){
-					result.error = err;
+					console.log(err);
+					result.error = '-5';
 					return res.json(result);
 				}
 				if(sign){
 					common.createSessionID(userID, password, function(err,sessionid,info){
 						if(err){
-							result.error = err;
+							console.log(err);
+							result.error = '-5';
 							return res.json(result);
 						}
 						result.error = null;
@@ -176,7 +173,8 @@ exports.Login = function(req, res) {
 		}else{
 			common.createSessionID(userID, password, function(err,sessionid,info){
 				if(err){
-					result.error = err;
+					console.log(err);
+					result.error = '-5';
 					return res.json(result);
 				}
 				result.error = null;
@@ -224,17 +222,18 @@ exports.forgetPass = function(req, res) {
 	var userID = checkStr(req.body.userID);
 	var result = {};
 	if(!idcard || !name || !userID){
-		result.error = 'Maybe Inject';
+		result.error = '-1';
 		return res.json(result);
 	}
-	var sql = "SELECT name,idcard FROM wit_user_info_view WHERE uid='"+userID+"'";
+	var sql = "SELECT name,idcard,pass FROM wit_user_info_view WHERE studentId='"+userID+"'";
 	mysql.query(sql, function(err, rows, fields){
 		if(err){
-			result.error = err;
+			console.log(err);
+			result.error = '-5';
 			return res.json(result);
 		}
 		if(!rows[0]){
-			result.error = 'The user does not exist';
+			result.error = '-4';
 			return res.json(result);
 		}else{
 			if(idcard == rows[0]['idcard'] && name == rows[0]['name']){
@@ -242,7 +241,7 @@ exports.forgetPass = function(req, res) {
 				result.password = rows[0]['pass'];
 				return res.json(result);
 			}else{
-				result.error = 'Wrong user info';
+				result.error = '-3';
 				return res.json(result);
 			}
 		}

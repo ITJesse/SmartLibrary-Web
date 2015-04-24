@@ -1,0 +1,45 @@
+html
+    head
+        meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+        title Test
+        
+        script(type="text/javascript", src="/js/jquery/jquery.min.js")
+        script(type="text/javascript", src="/js/libs/md5.js")
+            
+    body
+        p
+            select#method
+                option(value="") 
+                option(value="Login") Login
+                option(value="ForgetPass") ForgetPass
+                option(value="LibraryHot") LibraryHot
+                option(value="LibraryHotWords") LibraryHotWords
+                option(value="LibraryBorrow") LibraryBorrow
+                option(value="LibraryBookList") LibraryBookList
+                option(value="LibraryBookInfo") LibraryBookInfo
+                option(value="GetStudentInfo") GetStudentInfo
+                option(value="BindCard") BindCard
+                option(value="UnBindCard") UnBindCard
+                option(value="GetCardInfo") GetCardInfo
+                option(value="CheckCardId") CheckCardId
+                option(value="InsertBook") InsertBook
+                option(value="CheckTagId") CheckTagId
+                option(value="GetBookList") GetBookList
+                option(value="GetTagInfo") GetTagInfo
+                option(value="LendBook") LendBook
+                option(value="Lookup") Lookup
+                option(value="ReturnBook") ReturnBook
+                option(value="GetChartVal") GetChartVal
+                option(value="GetLastVal") GetLastVal
+                
+        p
+            textarea#input(style="width: 600px;height: 200px;")
+                
+        p
+            textarea#return(style="width: 600px;height: 200px;")
+        p
+            button#submit(style="width: 100px;height: 40px;") submit
+            
+        script(type="text/javascript", src="/js/test.js")
+        
+            

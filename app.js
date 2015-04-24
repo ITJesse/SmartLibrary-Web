@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var config = require('./modules/config');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var getChartVal = require('./routes/getChartVal');
@@ -29,7 +30,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
-    secret: 'xfgf&(*uc3joi)',
+    secret: config.common.cookieSecret,
     resave: false,
     saveUninitialized: true
 }));
@@ -51,9 +52,15 @@ app.all('/API/Android/*', android.checkSignString);
 app.post('/API/Android/Login', android.Login);
 app.post('/API/Android/ForgetPass', android.forgetPass);
 app.post('/API/Android/LibraryHot', android.libraryHot);
+app.post('/API/Android/LibraryHotWords', android.libraryHotWords);
 app.post('/API/Android/LibraryBorrow', android.libraryBorrow);
 app.post('/API/Android/LibraryBookList', android.libraryBookList);
 app.post('/API/Android/LibraryBookInfo', android.libraryBookInfo);
+
+//Test路由
+app.get('/Test', function(req, res) {
+    res.render('test');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
