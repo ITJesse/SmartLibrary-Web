@@ -50,7 +50,6 @@ exports.libraryHot = function(req, res){
 //查借书
 exports.libraryBorrow = function(req, res){
 	var sessionID = checkStr(req.body.sessionid);
-	var password = checkStr(req.body.password);
 	var result = {};
 	if(!sessionID){
 		result.error = '-1';
@@ -68,7 +67,7 @@ exports.libraryBorrow = function(req, res){
 			result.error = '-5';
 			return res.json(result);
 		}
-		common.fetchLibraryBorrow(userID, password, function(err, data){
+		common.fetchLibraryBorrow(userID, function(err, data){
 			if(err && err == 'Wrong password!'){
 				result.error = '-3';
 				return res.json(result);

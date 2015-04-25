@@ -243,7 +243,7 @@ router.get('/Lookup', function(req, res) {
     async.waterfall([
         function(callback) {
             if(type == 'uid'){
-                var uid = req.body.uid;
+                var uid = req.query.uid;
                 var sql = "SELECT studentId FROM student_bind WHERE uid = '"+uid+"'";
                 mysql.query(sql, function(err, rows){
                     if(err){
@@ -257,7 +257,7 @@ router.get('/Lookup', function(req, res) {
                     }
                 });
             }else{
-                callback(null, req.body.studentId);
+                callback(null, req.query.studentId);
             }
         },
         function(studentId, callback) {

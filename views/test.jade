@@ -8,35 +8,42 @@ html
             
     body
         p
-            select#method
-                option(value="") 
-                option(value="Login") Login (POST)
-                option(value="ForgetPass") ForgetPass (POST)
-                option(value="LibraryHot") LibraryHot (POST)
-                option(value="LibraryHotWords") LibraryHotWords (POST)
-                option(value="LibraryBorrow") LibraryBorrow (POST)
-                option(value="LibraryBookList") LibraryBookList (POST)
-                option(value="LibraryBookInfo") LibraryBookInfo (POST)
-                option(value="GetStudentInfo") GetStudentInfo (GET)
-                option(value="BindCard") BindCard (GET)
-                option(value="UnBindCard") UnBindCard (GET)
-                option(value="GetCardInfo") GetCardInfo (GET)
-                option(value="CheckCardId") CheckCardId (GET)
-                option(value="InsertBook") InsertBook (POST)
-                option(value="CheckTagId") CheckTagId (GET)
-                option(value="GetBookList") GetBookList (GET)
-                option(value="GetTagInfo") GetTagInfo (GET)
-                option(value="LendBook") LendBook (POST)
-                option(value="Lookup") Lookup (GET)
-                option(value="ReturnBook") ReturnBook (POST)
-                option(value="GetChartVal") GetChartVal (GET)
-                option(value="GetLastVal") GetLastVal (GET)
+            span(style="margin: 10px 20px;") Android接口
+                select#android
+                    option(value="") 
+                    option(value="Login") Login (POST)
+                    option(value="ForgetPass") ForgetPass (POST)
+                    option(value="LibraryHot") LibraryHot (POST)
+                    option(value="LibraryHotWords") LibraryHotWords (POST)
+                    option(value="LibraryBorrow") LibraryBorrow (POST)
+                    option(value="LibraryBookList") LibraryBookList (POST)
+                    option(value="LibraryBookInfo") LibraryBookInfo (POST)
+            span(style="margin: 10px 20px;") Client接口
+                select#client
+                    option(value="")
+                    option(value="GetStudentInfo") GetStudentInfo (GET)
+                    option(value="BindCard") BindCard (GET)
+                    option(value="UnBindCard") UnBindCard (GET)
+                    option(value="GetCardInfo") GetCardInfo (GET)
+                    option(value="CheckCardId") CheckCardId (GET)
+                    option(value="InsertBook") InsertBook (POST)
+                    option(value="CheckTagId") CheckTagId (GET)
+                    option(value="GetBookList") GetBookList (GET)
+                    option(value="GetTagInfo") GetTagInfo (GET)
+                    option(value="LendBook") LendBook (POST)
+                    option(value="Lookup") Lookup (GET)
+                    option(value="ReturnBook") ReturnBook (POST)
+            span(style="margin: 10px 20px;") Web接口
+                select#web
+                    option(value="")
+                    option(value="GetChartVal") GetChartVal (GET)
+                    option(value="GetLastVal") GetLastVal (GET)
                 
         p
-            textarea#input(style="width: 600px;height: 200px;")
+            textarea#input(style="width: 800px;height: 300px;")
                 
         p
-            textarea#return(style="width: 600px;height: 200px;")
+            textarea#return(style="width: 800px;height: 300px;")
         p
             button#submit(style="width: 100px;height: 40px;") submit
             

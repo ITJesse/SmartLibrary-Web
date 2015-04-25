@@ -344,33 +344,10 @@ exports.fetchLibraryBookInfo = function(isbn, callback){
 
 
 //查借书
-exports.fetchLibraryBorrow = function(userID, password, callback){
-	var url = 'http://218.199.187.110/reader/book_lst.php';
-	var field = ['id', 'title', 'borrow_date', 'return_date', 'renew_count', 'area'];
-	logIntoLibrary(userID, password, function(err, cookie){
+exports.fetchLibraryBorrow = function(userID, callback){
+	var sql = "SELECT * FROM lend_view WHERE studentId = '"+userID+"' AND isReturn = 0";
+	mysql.query(sql, function(err, rows){
 		if(err) return callback(err);
-		var options = {
-			uri: url,
-			jar: cookie,
-			timeout: 5000
-		};
-		request.get(options, function(err, response, body){
-			if(!body.indexOf('当前借阅')){
-				return callback('Fetch failed');
-			}
-			var content = body.replace(/<font \S*>/g, '<font color="">');
-			$ = cheerio.load(content);
-			var data = new Array();
-			$('.table_line').find('tr').each(function(i, item){
-				data[i] = {};
-				this.find('td').each(function(k, item){
-					if(i != 0 && k != 0 && k <= 5){
-						data[i][field[k]] = this.text().replace(/\s/g,'');
-					}
-				});
-			});
-			data.splice(0,1);
-			return callback(null, data);
-		});
+		return callback(null, rows);
 	});
 };

@@ -1,12 +1,15 @@
 var sessionId = '';
 var studentId = '';
+var api = '';
 
-$("#method").on("change", function() {
-    var api = $(this).val();
+$("select").on("change", function() {
+    api = $(this).val();
     var request = {};
     var timestamp = Date.parse(new Date()) / 1000;
     request.timestamp = timestamp;
     request.sign = md5("withelper_itjesse" + timestamp).toUpperCase();
+    $('select').val('');
+    $(this).val(api);
     var str = '';
 
     switch(api){
@@ -29,11 +32,6 @@ $("#method").on("change", function() {
                 request.sessionid = sessionId;
             }else{
                 request.sessionid = 'insert your sessionid';
-            }
-            if(studentId){
-                request.password = studentId;
-            }else{
-                request.password = 'insert your password';
             }
             break;
         case 'LibraryBookList':
@@ -99,116 +97,119 @@ $("#method").on("change", function() {
         case 'GetLastVal':
             request.id = '1';
             break;
+        default:
+            request = {};
     }
     str = JSON.stringify(request, null, '\t');
     $('#input').val(str);
 });
 
 $('#submit').on('click', function() {
-    var api = $('#method').val();
-    var request = JSON.parse($('#input').val());
-    var url = '';
-    var method = '';
+    if(api){
+        var request = JSON.parse($('#input').val());
+        var url = '';
+        var method = '';
 
-    switch(api){
-        case 'Login':
-            method = 'POST';
-            url = '/API/Android/Login';
-            break;
-        case 'ForgetPass':
-            method = 'POST';
-            url = '/API/Android/ForgetPass';
-            break;
-        case 'LibraryHot':
-            method = 'POST';
-            url = '/API/Android/LibraryHot';
-            break;
-        case 'LibraryHotWords':
-            method = 'POST';
-            url = '/API/Android/LibraryHotWords';
-            break;
-        case 'LibraryBorrow':
-            method = 'POST';
-            url = '/API/Android/LibraryBorrow';
-            break;
-        case 'LibraryBookList':
-            method = 'POST';
-            url = '/API/Android/LibraryBookList';
-            break;
-        case 'LibraryBookInfo':
-            method = 'POST';
-            url = '/API/Android/LibraryBookInfo';
-            break;
-        case 'GetStudentInfo':
-            method = 'GET';
-            url = '/API/Client/GetStudentInfo';
-            break;
-        case 'GetCardInfo':
-            method = 'GET';
-            url = '/API/Client/GetCardInfo';
-            break;
-        case 'CheckCardId':
-            method = 'GET';
-            url = '/API/Client/CheckCardId';
-            break;
-        case 'BindCard':
-            method = 'GET';
-            url = '/API/Client/BindCard';
-            break;
-        case 'UnBindCard':
-            method = 'GET';
-            url = '/API/Client/UnBindCard';
-            break;
-        case 'InsertBook':
-            method = 'POST';
-            url = '/API/Client/InsertBook';
-            break;
-        case 'CheckTagId':
-            method = 'GET';
-            url = '/API/Client/CheckTagId';
-            break;
-        case 'GetBookList':
-            method = 'GET';
-            url = '/API/Client/GetBookList';
-            break;
-        case 'GetTagInfo':
-            method = 'GET';
-            url = '/API/Client/GetTagInfo';
-            break;
-        case 'LendBook':
-            method = 'POST';
-            url = '/API/Client/LendBook';
-            break;
-        case 'ReturnBook':
-            method = 'POST';
-            url = '/API/Client/ReturnBook';
-            break;
-        case 'Lookup':
-            method = 'GET';
-            url = '/API/Client/Lookup';
-            break;
-        case 'GetChartVal':
-            method = 'GET';
-            url = '/API/Web/GetChartVal';
-            break;
-        case 'GetLastVal':
-            method = 'GET';
-            url = '/API/Web/GetLastVal';
-            break;
-    }
-
-    $.ajax({
-        url: url,
-        method: method,
-        data: request,
-        dataType: 'json',
-        success: function(returnJson){
-            $('#return').text(JSON.stringify(returnJson, null, '\t'));
-            if(returnJson.sessionid) sessionId = returnJson.sessionid;
-            if(request.userID) studentId = request.userID;
-        },
-        error: function(returnString){
-            $('#return').text(returnString.responseText);
+        switch(api){
+            case 'Login':
+                method = 'POST';
+                url = '/API/Android/Login';
+                break;
+            case 'ForgetPass':
+                method = 'POST';
+                url = '/API/Android/ForgetPass';
+                break;
+            case 'LibraryHot':
+                method = 'POST';
+                url = '/API/Android/LibraryHot';
+                break;
+            case 'LibraryHotWords':
+                method = 'POST';
+                url = '/API/Android/LibraryHotWords';
+                break;
+            case 'LibraryBorrow':
+                method = 'POST';
+                url = '/API/Android/LibraryBorrow';
+                break;
+            case 'LibraryBookList':
+                method = 'POST';
+                url = '/API/Android/LibraryBookList';
+                break;
+            case 'LibraryBookInfo':
+                method = 'POST';
+                url = '/API/Android/LibraryBookInfo';
+                break;
+            case 'GetStudentInfo':
+                method = 'GET';
+                url = '/API/Client/GetStudentInfo';
+                break;
+            case 'GetCardInfo':
+                method = 'GET';
+                url = '/API/Client/GetCardInfo';
+                break;
+            case 'CheckCardId':
+                method = 'GET';
+                url = '/API/Client/CheckCardId';
+                break;
+            case 'BindCard':
+                method = 'GET';
+                url = '/API/Client/BindCard';
+                break;
+            case 'UnBindCard':
+                method = 'GET';
+                url = '/API/Client/UnBindCard';
+                break;
+            case 'InsertBook':
+                method = 'POST';
+                url = '/API/Client/InsertBook';
+                break;
+            case 'CheckTagId':
+                method = 'GET';
+                url = '/API/Client/CheckTagId';
+                break;
+            case 'GetBookList':
+                method = 'GET';
+                url = '/API/Client/GetBookList';
+                break;
+            case 'GetTagInfo':
+                method = 'GET';
+                url = '/API/Client/GetTagInfo';
+                break;
+            case 'LendBook':
+                method = 'POST';
+                url = '/API/Client/LendBook';
+                break;
+            case 'ReturnBook':
+                method = 'POST';
+                url = '/API/Client/ReturnBook';
+                break;
+            case 'Lookup':
+                method = 'GET';
+                url = '/API/Client/Lookup';
+                break;
+            case 'GetChartVal':
+                method = 'GET';
+                url = '/API/Web/GetChartVal';
+                break;
+            case 'GetLastVal':
+                method = 'GET';
+                url = '/API/Web/GetLastVal';
+                break;
         }
-    });
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: request,
+            dataType: 'json',
+            success: function(returnJson){
+                $('#return').text(JSON.stringify(returnJson, null, '\t'));
+                if(returnJson.sessionid) sessionId = returnJson.sessionid;
+                if(request.userID) studentId = request.userID;
+            },
+            error: function(returnString){
+                $('#return').text(returnString.responseText);
+            }
+        });
+    }
 })
