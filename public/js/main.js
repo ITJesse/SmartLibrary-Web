@@ -1,6 +1,12 @@
 // make console.log safe to use
 window.console||(console={log:function(){}});
 
+$(document).on('ready', function() {
+	$.ajax({
+		url: ''
+	})
+});
+
 //------------- Options for Supr - admin tempalte -------------//
 var supr_Options = {
 	fixedWidth: false, //activate fixed version with true
@@ -41,7 +47,7 @@ $(window).load(function(){
 });
 
 // document ready function
-$(document).ready(function(){ 	
+$(document).ready(function(){
 
 	//make template fixed width
 	if(supr_Options.fixedWidth) {
@@ -63,14 +69,14 @@ $(document).ready(function(){
 			$('#content').attr('id', 'content-one');
 		}
 	} else {localStorage.setItem('rtl', 0);}
-	
+
   	//Disable certain links
     $('a[href^=#]').click(function (e) {
       e.preventDefault()
     })
 
     $('.search-btn').addClass('nostyle');//tell uniform to not style this element
- 
+
 	//------------- Navigation -------------//
 
 	mainNav = $('.mainnav>ul>li');
@@ -84,7 +90,7 @@ $(document).ready(function(){
 	if(mainNavLink.hasClass('hasUl')) {
 		$(this).closest('li').addClass('hasSub');
 	}
-	
+
 	/*Auto current system in main navigation */
 	var domain = document.domain;
 	var folder ='';//if you put site in folder not in main domain you need to specify it. example http://www.host.com/folder/site
@@ -105,7 +111,7 @@ $(document).ready(function(){
 						//its a part of sub menu need to expand this menu
 						$(this).prev('a.hasUl').addClass('drop');
 						$(this).addClass('expand');
-					} 
+					}
 				});
 			}
 		});
@@ -139,7 +145,7 @@ $(document).ready(function(){
 	mainNavLinkAll.hover(
 	  function () {
 	    $(this).find('span.icon16').addClass('blue');
-	  }, 
+	  },
 	  function () {
 	    $(this).find('span.icon16').removeClass('blue');
 	  }
@@ -154,8 +160,8 @@ $(document).ready(function(){
 				$(this).siblings('ul.sub').slideUp(250).siblings().toggleClass('drop');
 			} else {
 				$(this).siblings('ul.sub').slideDown(250).siblings().toggleClass('drop');
-			}			
-		} 
+			}
+		}
 	});
 	mainNavSubLink.click(function(event) {
 		$this = $(this);
@@ -165,8 +171,8 @@ $(document).ready(function(){
 				$(this).siblings('ul.sub').slideUp(250).siblings().toggleClass('drop');
 			} else {
 				$(this).siblings('ul.sub').slideDown(250).siblings().toggleClass('drop');
-			}			
-		} 
+			}
+		}
 	});
 
 	//responsive buttons
@@ -208,13 +214,13 @@ $(document).ready(function(){
 		}
 		$this.toggleClass('drop');
 	});
-	
+
 	//Hide and show sidebar btn
 
 	$(function () {
 		//var pages = ['grid.html','charts.html'];
 		var pages = [];
-	
+
 		for ( var i = 0, j = pages.length; i < j; i++ ) {
 
 		    if($.cookie("currentPage") == pages[i]) {
@@ -233,7 +239,7 @@ $(document).ready(function(){
 		    }
 
 		}
-		
+
 	});
 
 	$( '.collapseBtn' ).bind( 'click', function(){
@@ -241,7 +247,7 @@ $(document).ready(function(){
 
 		//left sidbar clicked
 		if ($this.hasClass('leftbar')) {
-			
+
 			if($(this).hasClass('hide-sidebar')) {
 				//show sidebar
 				$this.removeClass('hide-sidebar');
@@ -250,30 +256,30 @@ $(document).ready(function(){
 			} else {
 				//hide sidebar
 				$this.addClass('hide-sidebar');
-				$this.children('a').attr('title','Show Left Sidebar');		
+				$this.children('a').attr('title','Show Left Sidebar');
 			}
 			$('#sidebarbg').toggleClass('hided');
 			$('#sidebar').toggleClass('hided')
 			$('.collapseBtn.leftbar').toggleClass('top shadow');
 			//expand content
-			
+
 			if($('#content').length) {
 				$('#content').toggleClass('hided');
 			}
 			if($('#content-two').length) {
 				$('#content-two').toggleClass('hided');
-			}	
+			}
 
 		}
 
 		//right sidebar clicked
 		if ($this.hasClass('rightbar')) {
-			
+
 			if($(this).hasClass('hide-sidebar')) {
 				//show sidebar
 				$this.removeClass('hide-sidebar');
 				$this.children('a').attr('title','Hide Right Sidebar');
-				
+
 			} else {
 				//hide sidebar
 				$this.addClass('hide-sidebar');
@@ -289,7 +295,7 @@ $(document).ready(function(){
 			}
 			if($('#content-two').length) {
 				$('#content-two').toggleClass('hided-right');
-			}	
+			}
 			$('.collapseBtn.rightbar').toggleClass('top shadow')
 		}
 	});
@@ -313,32 +319,32 @@ $(document).ready(function(){
 			$this.parent('div').addClass('min');
 			cont = $this.parent('div').next('div.panel-body')
 			cont.slideUp(500, 'easeOutExpo'); //change effect if you want :)
-			
-		} else  
+
+		} else
 		if($this .hasClass('maximize')) {
 			//minimize content
 			$this.removeClass('maximize').addClass('minimize');
 			$this.parent('div').removeClass('min');
 			cont = $this.parent('div').next('div.panel-body');
 			cont.slideDown(500, 'easeInExpo'); //change effect if you want :)
-		} 
-		
+		}
+
 	})
 
 	//show minimize and maximize icons
 	widget.hover(function() {
-		    $(this).find('.panel-heading>a').show(50);	
+		    $(this).find('.panel-heading>a').show(50);
 		}
 		, function(){
-			$(this).find('.panel-heading>a').hide();	
+			$(this).find('.panel-heading>a').hide();
 	});
 
 	//add shadow if hover panel
 	widget.not('.drag').hover(function() {
-		    $(this).addClass('hover');	
+		    $(this).addClass('hover');
 		}
 		, function(){
-			$(this).removeClass('hover');	
+			$(this).removeClass('hover');
 	});
 
 	//------------- Search forms  submit handler  -------------//
@@ -448,7 +454,7 @@ $(document).ready(function(){
            	$('#sidebar-right').removeClass('hided showRb');
         }
     });
-	
+
 	//------------- Uniform  -------------//
 	//add class .nostyle if not want uniform to style field
 	$("input, textarea, select").not('.nostyle').uniform();

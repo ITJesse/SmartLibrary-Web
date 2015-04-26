@@ -32,12 +32,24 @@ router.get('/GetChartVal', function(req, res, next) {
 
 router.get('/GetLastVal', function(req, res, next) {
     var id = req.query.id;
-    var sql = "SELECT xbee_data.`value`, xbee_list.unit, UNIX_TIMESTAMP(xbee_data.`time`) * 1000 AS time FROM xbee_data,xbee_list WHERE xbee_data.mac = xbee_list.mac AND xbee_data.type = xbee_list.type AND xbee_list.id = '" + id + "' ORDER BY xbee_data.time DESC LIMIT 1";
+    var sql = "SELECT xbee_data.`value`, xbee_list.`name`, xbee_list.unit, UNIX_TIMESTAMP(xbee_data.`time`) * 1000 AS time FROM xbee_data,xbee_list WHERE xbee_data.mac = xbee_list.mac AND xbee_data.type = xbee_list.type AND xbee_list.id = '" + id + "' ORDER BY xbee_data.time DESC LIMIT 1";
     mysql.query(sql, function(err, rows) {
         if (err) return console.log(err);
-        res.json(rows[0]);
+        var result = rows[0];
+        result.error = null;
+        res.json(result);
     });
 });
 
+router.get('/GetStudyRoomUsed', function(req, res, next) {
+    var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat";
+    mysql.query(sql, function(err, rows) {
+        if (err) return console.log(err);
+        var result = {};
+        result.error = null;
+        result.used = rows[0].used;
+        res.json(result);
+    });
+});
 
 module.exports = router;

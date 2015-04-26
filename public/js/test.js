@@ -104,8 +104,9 @@ $("select").on("change", function() {
                 request.sessionid = 'insert your sessionid';
             }
             break;
+        case 'GetStudyRoomUsed':
+            break;
         default:
-            request = {};
     }
     str = JSON.stringify(request, null, '\t');
     $('#input').val(str);
@@ -205,6 +206,10 @@ $('#submit').on('click', function() {
             case 'GetLastVal':
                 method = 'GET';
                 url = '/API/Web/GetLastVal';
+                break;
+            case 'GetStudyRoomUsed':
+                method = 'GET';
+                url = '/API/Web/GetStudyRoomUsed';
                 break;
         }
 
