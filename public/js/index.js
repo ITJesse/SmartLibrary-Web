@@ -1,43 +1,61 @@
 // document ready function
 $(document).ready(function() {
-
-	//circular progrress bar
-	$(function () {
-
-		$(".greenCircle").knob({
-            'min':0,
-            'max':100,
-            'readOnly': true,
-            'width': 80,
-            'height': 80,
-            'fgColor': '#9FC569',
-            'dynamicDraw': true,
-            'thickness': 0.2,
-            'tickColorizeValues': true
-        })
-        $(".redCircle").knob({
-            'min':0,
-            'max':100,
-            'readOnly': true,
-            'width': 80,
-            'height': 80,
-            'fgColor': '#ED7A53',
-            'dynamicDraw': true,
-            'thickness': 0.2,
-            'tickColorizeValues': true
-        })
-        $(".blueCircle").knob({
-            'min':0,
-            'max':100,
-            'readOnly': true,
-            'width': 80,
-            'height': 80,
-            'fgColor': '#88BBC8',
-            'dynamicDraw': true,
-            'thickness': 0.2,
-            'tickColorizeValues': true
-        })
-
+	//温度
+	$.ajax({
+		url: '/API/Web/GetLastVal?id=1',
+		dataType: 'json',
+		success: function(data){
+			$('.redCircle').val(data.value);
+			$(".redCircle").knob({
+	            'min':0,
+	            'max':40,
+	            'readOnly': true,
+	            'width': 80,
+	            'height': 80,
+	            'fgColor': '#9FC569',
+	            'dynamicDraw': true,
+	            'thickness': 0.2,
+	            'tickColorizeValues': true
+	        });
+		}
+	});
+	//亮度
+	$.ajax({
+		url: '/API/Web/GetLastVal?id=2',
+		dataType: 'json',
+		success: function(data){
+			$('.greenCircle').val(data.value);
+			$(".greenCircle").knob({
+	            'min':0,
+	            'max':4,
+	            'readOnly': true,
+	            'width': 80,
+	            'height': 80,
+	            'fgColor': '#ED7A53',
+	            'dynamicDraw': true,
+	            'thickness': 0.2,
+	            'tickColorizeValues': true
+	        });
+		}
+	});
+	//湿度
+	$.ajax({
+		url: '/API/Web/GetLastVal?id=3',
+		dataType: 'json',
+		success: function(data){
+			$('.blueCircle').val(data.value);
+			$(".blueCircle").knob({
+	            'min':0,
+	            'max':100,
+	            'readOnly': true,
+	            'width': 80,
+	            'height': 80,
+	            'fgColor': '#88BBC8',
+	            'dynamicDraw': true,
+	            'thickness': 0.2,
+	            'tickColorizeValues': true
+	        });
+		}
 	});
 
 	var divElement = $('div'); //log all div elements
