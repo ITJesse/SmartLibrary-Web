@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var algo = require('ape-algorithm');
 
 var mysql = require('../modules/mysql');
 var config = require('../modules/config');
@@ -77,33 +76,11 @@ router.get('/GetCameraImage', function(req, res) {
             console.log(err);
             return res.render('500');
         }
-        // var count = files.length,
-        //     results = [],
-        //     mac = '',
-        //     num = '',
-        //     date = '';
         var result, tmp;
         files.forEach(function (filename) {
-            // if(filename.indexOf('jpg') != -1){
-            //     var tmp = filename.split('_');
-            //     mac = tmp[0];
-            //     num = tmp[1];
-            //     date = tmp[2];
-            //     results.push({mac: mac, num: num, date: date, count: parseInt(tmp[3])});
-            // }
             result = tmp;
             tmp = filename;
         });
-        // results = algo.quicksort.sortObj(results, 'count', 'desc');
-        // var path = config.common.cameraUploadDir + results[0].mac + '_' + results[0].num + '_' + results[0].date + '_' + results[0].count + '.jpg';
-        // fs.readFile(path, function (err, data) {
-        //     if (err){
-        //         console.log(err);
-        //         return res.render('500');
-        //     }
-        //     res.set('Content-Type', 'image/jpeg');
-        //     res.send(data);
-        // });
         fs.readFile(config.common.cameraUploadDir + result, function (err, data) {
             if (err){
                 console.log(err);
