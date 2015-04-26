@@ -1,12 +1,6 @@
 // make console.log safe to use
 window.console||(console={log:function(){}});
 
-$(document).on('ready', function() {
-	$.ajax({
-		url: ''
-	})
-});
-
 //------------- Options for Supr - admin tempalte -------------//
 var supr_Options = {
 	fixedWidth: false, //activate fixed version with true

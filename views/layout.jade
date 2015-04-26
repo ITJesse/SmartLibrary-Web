@@ -96,10 +96,10 @@ html
                     h5.title 座位占用
                     .content
                         span.icon16.icomoon-icon-book.left
-                        .progress.progress-mini.left.tip#studyRoomUsedMini(title="0%")
-                            .progress-bar.progress-bar-success#studyRoomUsedNormal(style="width: 0%;")
-                        span.percent#studyRoomUsedSpan 0%
-                        .stat#studyRoomUsedText 0 / 1000
+                        .progress.progress-mini.left.tip(title="#{layout.studyRoomUsedPercent}%")
+                            .progress-bar.progress-bar-success(style="width: #{layout.studyRoomUsedPercent}%;")
+                        span.percent#studyRoomUsedSpan #{layout.studyRoomUsedPercent}%
+                        .stat #{layout.studyRoomUsed} / 3000
 
                 .sidebar-widget
                     h5.title 每日统计
@@ -107,15 +107,15 @@ html
                         .rightnow
                             ul.list-unstyled
                                 li
-                                    span.number 340
+                                    span.number #{layout.enterStudentCount}
                                     span.icon16.icomoon-icon-man
                                     | 入馆人数
                                 li
-                                    span.number 580
+                                    span.number #{layout.bookLendCount}
                                     span.icon16.icomoon-icon-books
                                     | 借书总数
                                 li
-                                    span.number 120
+                                    span.number #{layout.selfStudyCount}
                                     span.icon16.icomoon-icon-book
                                     | 自习总数
             

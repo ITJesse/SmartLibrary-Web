@@ -35,9 +35,6 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/login', login);
-
 //客户端部分API路由
 app.use('/API/Client', book);
 app.use('/API/Client', student);
@@ -60,6 +57,10 @@ app.post('/API/Android/StudyRoomSeat', android.getStudyRoomSeat);
 app.get('/Test', function(req, res) {
     res.render('test');
 });
+
+//Web页面路由
+app.use('/', routes);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

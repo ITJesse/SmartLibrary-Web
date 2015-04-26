@@ -28,13 +28,13 @@ block content
                         .circle-stats(dir="ltr")
                             .circular-item.tipB(title="温度")
                                 span.icon.silk-icon-wand
-                                input.redCircle(type="text", value="0")
+                                input.redCircle(type="text", value="#{temperature}")
                             .circular-item.tipB(title="湿度")
                                 span.icon.silk-icon-drops
-                                input.blueCircle(type="text", value="0")
+                                input.blueCircle(type="text", value="#{humidity}")
                             .circular-item.tipB(title="亮度")
                                 span.icon.silk-icon-sun
-                                input.greenCircle(type="text", value="0")
+                                input.greenCircle(type="text", value="#{brightness}")
                                     
                 .col-lg-4
                     .page-header
