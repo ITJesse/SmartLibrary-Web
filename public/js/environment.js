@@ -51,7 +51,7 @@ var options = {
     yaxis: {
         min: 0
     },
-    colors: chartColours,
+    colors: ['#88bbc8', '#ed7a53', '#9FC569', '#bbdce3', '#9a3b1b', '#5a8022', '#2c7282'],
     shadowSize: 1,
     tooltip: true, //activate tooltip
     tooltipOpts: {
@@ -63,10 +63,10 @@ var options = {
     }
 };
 
-var getChartValues = function(chart, sensorId){
+var getChartValues = function(chart, sensorId, startTime){
     $.ajax({
         type: "GET",
-        url: "/API/Web/GetChartVal?id="+sensorId+"&startTime=9999999999",
+        url: "/API/Web/GetChartVal?id="+sensorId+"&startTime="+startTime,
 		dataType: "json",
         success: function(msg) {
             if(!msg.error){
@@ -100,9 +100,13 @@ $(document).ready(function() {
 
     $('.simple-chart').each(function(index, item){
         var sensorId = $(this).data('sensorid');
-        getChartValues(item, sensorId);
+        getChartValues(item, sensorId, null);
+    });
+
+    $('.timeSelect').on('click', 'li', function(){
+        var sensorId = $(this).parent().data().chartid;
+        var startTime = $(this).data().starttime;
+        getChartValues($('[data-sensorId='+sensorId+']'), sensorId, startTime);
     });
 
 }); //End document ready functions
-
-var chartColours = ['#88bbc8', '#ed7a53', '#9FC569', '#bbdce3', '#9a3b1b', '#5a8022', '#2c7282'];

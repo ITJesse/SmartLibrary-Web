@@ -13,7 +13,28 @@ block content
                                 h4
                                     span.icon16.icomoon-icon-bars       
                                     span #{list[i].name}
-                                a.minimize(href="#") 收起      
+                                .panel-form.right
+                                    a.btn.btn-default.btn-xs.dropdown-toggle(data-toggle="dropdown",href="#")
+                                        span.icon16.entypo-icon-clock
+                                        span.caret
+                                    ul.dropdown-menu.timeSelect(data-chartId="#{list[i].id}")
+                                        li(data-startTime="0")
+                                            a(href="#")
+                                                span.entypo-icon-clock
+                                                | &nbsp;实时
+                                        li(data-startTime="86400")
+                                            a(href="#")
+                                                span.entypo-icon-clock
+                                                | &nbsp;一天
+                                        li(data-startTime="604800")
+                                            a(href="#")
+                                                span.entypo-icon-clock
+                                                | &nbsp;一周
+                                        li(data-startTime="259200")
+                                            a(href="#")
+                                                span.entypo-icon-clock
+                                                | &nbsp;一月
+                                a.minimize(href="#") 收起
                             .panel-body
                                 .simple-chart(data-sensorId="#{list[i].id}")
                                     img.chart-loading(src="images/loaders/circular/054.gif",alt="加载中")
