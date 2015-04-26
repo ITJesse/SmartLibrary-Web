@@ -4,12 +4,16 @@ var router = express.Router();
 var mysql = require('../modules/mysql');
 
 /* GET home page. */
-router.get('/GetChartVal', function(req, res, next) {
+router.get('/GetChartVal', function(req, res) {
     var id = req.query.id;
     var startTime = req.query.startTime ? Math.ceil(((new Date()).valueOf() - req.query.startTime) / 1000) : Math.ceil(((new Date()).valueOf() - 10 * 60 * 1000) / 1000);
     var sql = "SELECT (UNIX_TIMESTAMP(xbee_data.time) + 8 * 60 * 60) * 1000 AS time, xbee_data.`value` FROM xbee_list INNER JOIN xbee_data ON xbee_list.mac = xbee_data.mac AND xbee_data.type = xbee_list.type WHERE xbee_list.id = " + id + " AND UNIX_TIMESTAMP(xbee_data.time) > " + startTime + " ORDER BY xbee_data.time ASC";
     mysql.query(sql, function(err, rows) {
-        if (err) return console.log(err);
+        if(err){
+            console.log(err);
+            result = {error: "-5"};
+            return res.json(result);
+        }
         var data = [];
         if(rows.length > 100){
             var radio = Math.floor(rows.length / 100);
@@ -23,28 +27,40 @@ router.get('/GetChartVal', function(req, res, next) {
         }
         var sql = "SELECT name FROM xbee_list WHERE id = '"+id+"'";
         mysql.query(sql, function(err, rows) {
-            if (err) return console.log(err);
+            if(err){
+                console.log(err);
+                result = {error: "-5"};
+                return res.json(result);
+            }
             var result = {error: null, label: rows[0].name, data: data};
             res.json(result);
         });
     });
 });
 
-router.get('/GetLastVal', function(req, res, next) {
+router.get('/GetLastVal', function(req, res) {
     var id = req.query.id;
     var sql = "SELECT xbee_data.`value`, xbee_list.`name`, xbee_list.unit, UNIX_TIMESTAMP(xbee_data.`time`) * 1000 AS time FROM xbee_data,xbee_list WHERE xbee_data.mac = xbee_list.mac AND xbee_data.type = xbee_list.type AND xbee_list.id = '" + id + "' ORDER BY xbee_data.time DESC LIMIT 1";
     mysql.query(sql, function(err, rows) {
-        if (err) return console.log(err);
+        if(err){
+            console.log(err);
+            result = {error: "-5"};
+            return res.json(result);
+        }
         var result = rows[0];
         result.error = null;
         res.json(result);
     });
 });
 
-router.get('/GetStudyRoomUsed', function(req, res, next) {
+router.get('/GetStudyRoomUsed', function(req, res) {
     var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat";
     mysql.query(sql, function(err, rows) {
-        if (err) return console.log(err);
+        if(err){
+            console.log(err);
+            result = {error: "-5"};
+            return res.json(result);
+        }
         var result = {};
         result.error = null;
         result.used = rows[0].used;
