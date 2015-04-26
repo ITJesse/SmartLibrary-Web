@@ -72,7 +72,10 @@ router.get('/GetStudyRoomUsed', function(req, res) {
 
 router.get('/GetCameraImage', function(req, res) {
     fs.readdir(config.common.cameraUploadDir, function (err, files) {
-        if(err) return res.render('500');
+        if (err){
+            console.log(err);
+            return res.render('500');
+        }
         var count = files.length,
             results = [],
             mac = '',
@@ -90,7 +93,10 @@ router.get('/GetCameraImage', function(req, res) {
         results.sort();
         var path = config.common.cameraUploadDir + mac + '_' + num + '_' + date + '_' + results[results.length - 1];
         fs.readFile(path, function (err, data) {
-            if (err) return res.render('500');
+            if (err){
+                console.log(err);
+                return res.render('500');
+            }
             res.set('Content-Type', 'image/jpeg');
             res.send(data);
         });
