@@ -256,3 +256,37 @@ exports.forgetPass = function(req, res) {
 		}
 	});
 };
+
+//自习室座位获取
+exports.getClassroomSeat = function(req, res) {
+	var sessionID = checkStr(req.body.sessionid);
+	var result = {};
+	if(!sessionID){
+		result.error = '-1';
+		return res.json(result);
+	}
+	common.checkSessionID(sessionID, function(err, userID){
+		if(err && err == 'Wrong SessionID'){
+			result.error = '-5';
+			return res.json(result);
+		}else if(err && err == 'Empty SessionID'){
+			result.error = '-7';
+			return res.json(result);
+		}else if(err){
+			console.log(err);
+			result.error = '-5';
+			return res.json(result);
+		}
+		common.getStudyRoomSeat(userID, function(err, info){
+			if(err){
+				console.log(err);
+				result.error = '-5';
+				return res.json(result);
+			}
+			result.error = null;
+			result.emptySeat = info.emptySeat;
+			result.yourSeat = info.yourSeat;
+			return res.json(result);
+		});
+	});
+};

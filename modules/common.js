@@ -351,3 +351,23 @@ exports.fetchLibraryBorrow = function(userID, callback){
 		return callback(null, rows);
 	});
 };
+
+//自习室座位查询
+exports.getStudyRoomSeat = function(userID, callback){
+	var info = {};
+	var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat";
+	mysql.query(sql, function(err, rows){
+		if(err) return callback(err);
+		info.emptySeat = 3000 - rows[0].used;
+		var sql = "SELECT seat FROM study_room_seat WHERE studentId = '"+userID+"'";
+		mysql.query(sql, function(err, rows){
+			if(err) return callback(err);
+			if(rows[0]){
+				info.yourSeat = rows[0].seat;
+			}else{
+				info.yourSeat = null;
+			}
+			return callback(null, info);
+		});
+	});
+}
