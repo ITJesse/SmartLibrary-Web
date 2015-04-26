@@ -17,5 +17,6 @@ exports.android = {
 };
 
 exports.common = {
-    cookieSecret: 'KJH&^*&HJK'
+    cookieSecret: 'KJH&^*&HJK',
+    cameraUploadDir: '/home/camera/'
 }

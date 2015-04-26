@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            img#liveCamera(src="/API/Web/GetCameraImage", width="640", height="480")
+                
+block footer
+    script(type="text/javascript", src="js/security.js")

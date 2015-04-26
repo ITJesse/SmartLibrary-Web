@@ -131,4 +131,11 @@ router.get('/environment', function(req, res, next) {
     });
 });
 
+router.get('/security', function(req, res, next) {
+    res.render('security', {
+        title: '安防监测',
+        layout: layout
+    });
+});
+
 module.exports = router;
