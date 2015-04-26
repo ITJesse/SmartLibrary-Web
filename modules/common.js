@@ -355,11 +355,11 @@ exports.fetchLibraryBorrow = function(userID, callback){
 //自习室座位查询
 exports.getStudyRoomSeat = function(userID, callback){
 	var info = {};
-	var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat";
+	var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
 	mysql.query(sql, function(err, rows){
 		if(err) return callback(err);
 		info.emptySeat = 3000 - rows[0].used;
-		var sql = "SELECT seat FROM study_room_seat WHERE studentId = '"+userID+"'";
+		var sql = "SELECT seat FROM study_room_seat WHERE (studentId = '"+userID+"' AND isOut = 0) OR (studentId = '"+userID+"' AND isOut = 1 AND NOW() - outTime < 1800)";
 		mysql.query(sql, function(err, rows){
 			if(err) return callback(err);
 			if(rows[0]){

@@ -54,7 +54,7 @@ router.get('/GetLastVal', function(req, res) {
 });
 
 router.get('/GetStudyRoomUsed', function(req, res) {
-    var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat";
+    var sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
     mysql.query(sql, function(err, rows) {
         if(err){
             console.log(err);
