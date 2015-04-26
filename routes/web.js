@@ -82,7 +82,7 @@ router.get('/GetCameraImage', function(req, res) {
         //     mac = '',
         //     num = '',
         //     date = '';
-        var result;
+        var result, tmp;
         files.forEach(function (filename) {
             // if(filename.indexOf('jpg') != -1){
             //     var tmp = filename.split('_');
@@ -91,7 +91,8 @@ router.get('/GetCameraImage', function(req, res) {
             //     date = tmp[2];
             //     results.push({mac: mac, num: num, date: date, count: parseInt(tmp[3])});
             // }
-            result = filename;
+            result = tmp;
+            tmp = filename;
         });
         // results = algo.quicksort.sortObj(results, 'count', 'desc');
         // var path = config.common.cameraUploadDir + results[0].mac + '_' + results[0].num + '_' + results[0].date + '_' + results[0].count + '.jpg';
