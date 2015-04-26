@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var algo = require('ape-algorithm');
 
 var mysql = require('../modules/mysql');
 var config = require('../modules/config');
@@ -87,11 +88,11 @@ router.get('/GetCameraImage', function(req, res) {
                 mac = tmp[0];
                 num = tmp[1];
                 date = tmp[2];
-                results.push(tmp[3]);
+                results.push({mac: mac, num: num, date: date, count: parseInt(tmp[3])});
             }
         });
-        results.sort();
-        var path = config.common.cameraUploadDir + mac + '_' + num + '_' + date + '_' + results[results.length - 1];
+        results = algo.quicksort.sortObj(results, 'count', 'desc');
+        var path = config.common.cameraUploadDir + results[0].mac + '_' + results[0].num + '_' + results[0].date + '_' + results[0].count + '.jpg';
         fs.readFile(path, function (err, data) {
             if (err){
                 console.log(err);
