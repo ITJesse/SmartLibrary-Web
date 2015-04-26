@@ -80,7 +80,11 @@ router.get('/', function(req, res) {
                 if(err){
                     callback(err);
                 }else{
-                    callback(null, rows[0].value);
+                    if(rows[0]){
+                        callback(null, rows[0].value);
+                    }else{
+                        callback(null, 0);
+                    }
                 }
             });
         },
@@ -90,7 +94,11 @@ router.get('/', function(req, res) {
                 if(err){
                     callback(err);
                 }else{
-                    callback(null, rows[0].value);
+                    if(rows[0]){
+                        callback(null, rows[0].value);
+                    }else{
+                        callback(null, 0);
+                    }
                 }
             });
         },
@@ -100,7 +108,11 @@ router.get('/', function(req, res) {
                 if(err){
                     callback(err);
                 }else{
-                    callback(null, rows[0].value);
+                    if(rows[0]){
+                        callback(null, rows[0].value);
+                    }else{
+                        callback(null, 0);
+                    }
                 }
             });
         }
