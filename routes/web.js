@@ -17,9 +17,9 @@ router.get('/GetChartVal', function(req, res) {
             return res.json(result);
         }
         var data = [];
-        if(rows.length > 100){
-            var radio = Math.floor(rows.length / 100);
-            for(var i = 0; i < 100 * radio; i = i + radio){
+        if(rows.length > 50){
+            var radio = Math.floor(rows.length / 50);
+            for(var i = 0; i < 50 * radio; i = i + radio){
                 data.push([rows[i].time, parseFloat(rows[i].value)]);
             }
         }else{
