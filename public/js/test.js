@@ -97,6 +97,13 @@ $("select").on("change", function() {
         case 'GetLastVal':
             request.id = '1';
             break;
+        case 'StudyRoomSeat':
+            if(sessionId){
+                request.sessionid = sessionId;
+            }else{
+                request.sessionid = 'insert your sessionid';
+            }
+            break;
         default:
             request = {};
     }
@@ -138,6 +145,10 @@ $('#submit').on('click', function() {
             case 'LibraryBookInfo':
                 method = 'POST';
                 url = '/API/Android/LibraryBookInfo';
+                break;
+            case 'StudyRoomSeat':
+                method = 'POST';
+                url = '/API/Android/StudyRoomSeat';
                 break;
             case 'GetStudentInfo':
                 method = 'GET';

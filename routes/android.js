@@ -258,7 +258,7 @@ exports.forgetPass = function(req, res) {
 };
 
 //自习室座位获取
-exports.getClassroomSeat = function(req, res) {
+exports.getStudyRoomSeat = function(req, res) {
 	var sessionID = checkStr(req.body.sessionid);
 	var result = {};
 	if(!sessionID){

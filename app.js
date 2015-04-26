@@ -56,6 +56,7 @@ app.post('/API/Android/LibraryHotWords', android.libraryHotWords);
 app.post('/API/Android/LibraryBorrow', android.libraryBorrow);
 app.post('/API/Android/LibraryBookList', android.libraryBookList);
 app.post('/API/Android/LibraryBookInfo', android.libraryBookInfo);
+app.post('/API/Android/StudyRoomSeat', android.getStudyRoomSeat);
 
 //Test路由
 app.get('/Test', function(req, res) {
