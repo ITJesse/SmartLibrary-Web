@@ -1,20 +1,11 @@
-// document ready function
-$(document).ready(function() {
-
-    var divElement = $('div'); //log all div elements
-
+var getChartValues = function(chart, sensorId){
     $.ajax({
         type: "GET",
-        contentType: "application/json; charset=utf-8",
-        cache: false, //change to true in production app
-        url: "json/simple-chart.json",
-        data: "{dataFor: 'simple-chart'}",
+        url: "/API/Web/GetChartVal?id="+sensorId+"&startTime=9999999999",
 		dataType: "json",
         success: function(msg) {
             var data = msg.data;
             var label = msg.label;
-            var placeholder = $(".simple-chart");
-			console.log(msg.data);
             var options = {
                 grid: {
                     show: true,
@@ -61,6 +52,10 @@ $(document).ready(function() {
                         return label + '&nbsp;&nbsp;';
                     }
                 },
+                xaxis: {
+                    mode: "time",
+                    timeformat: "%m/%d %H:%M"
+                },
                 yaxis: {
                     min: 0
                 },
@@ -68,34 +63,40 @@ $(document).ready(function() {
                 shadowSize: 1,
                 tooltip: true, //activate tooltip
                 tooltipOpts: {
-                    content: "%s : %y.0",
+                    content: "%s : %y.1",
                     shifts: {
                         x: -30,
                         y: -50
                     }
                 }
             };
-			placeholder.each(function(i, item){
-				var tmp = [];
-				$.extend(true, tmp, data);
+            $.plot(chart, [{
+                    label: label,
+                    data: data,
+                    lines: {
+                        fillColor: "#f2f7f9"
+                    },
+                    points: {
+                        fillColor: "#88bbc8"
+                    }
+                }
 
-	            $.plot(item, [{
-	                    label: label,
-	                    data: tmp,
-	                    lines: {
-	                        fillColor: "#f2f7f9"
-	                    },
-	                    points: {
-	                        fillColor: "#88bbc8"
-	                    }
-	                }
-
-	            ], options);
-			});
+            ], options);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Error" + XMLHttpRequest.responseText);
+            console.log("Error" + XMLHttpRequest.responseText);
         }
+    });
+}
+
+// document ready function
+$(document).ready(function() {
+
+    var divElement = $('div'); //log all div elements
+
+    $('.simple-chart').each(function(index, item){
+        var sensorId = $(this).data('sensorid');
+        getChartValues(item, sensorId);
     });
 
 }); //End document ready functions

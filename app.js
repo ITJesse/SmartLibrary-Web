@@ -9,8 +9,7 @@ var session = require('express-session');
 var config = require('./modules/config');
 var routes = require('./routes/index');
 var login = require('./routes/login');
-var getChartVal = require('./routes/getChartVal');
-var getLastVal = require('./routes/getLastVal');
+var web = require('./routes/web');
 var book = require('./routes/book');
 var student = require('./routes/student');
 var android = require('./routes/android');
@@ -44,8 +43,7 @@ app.use('/API/Client', book);
 app.use('/API/Client', student);
 
 //Web部分API路由
-app.use('/API/Web/GetChartVal', getChartVal);
-app.use('/API/Web/GetLastVal', getLastVal);
+app.use('/API/Web/', web);
 
 //APP部分API路由
 app.all('/API/Android/*', android.checkSignString);
