@@ -2,6 +2,7 @@ var mysql = require('./modules/mysql');
 
 var express = require('express');
 var router = express.Router();
+var async = require('async');
 
 router.get('/', function(req, res) {
     res.send('ok');
@@ -74,6 +75,86 @@ module.exports = function(sock){
                     sock.write(JSON.stringify(json));
                 });
                 break;
+            case "12":
+                var res = {};
+                res.mac = mac;
+                res.type = "12";
+                async.waterfall([
+                    function(callback){
+                        sql = "SELECT * FROM student_bind WHERE uid = '"+value+"'";
+                        mysql.query(sql, function(err, rows){
+                            if(err){
+                                callback(err);
+                            }
+                            if(!rows[0]){
+                                callback('none user');
+                            }else{
+                                callback(null, rows[0].studentId);
+                            }
+                        });
+                    },
+                    function(studentId, callback){
+                        sql = "SELECT * FROM study_room_seat WHERE studentId = '"+studentId+"' AND isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                        mysql.query(sql, function(err, rows){
+                            if(err){
+                                callback(err);
+                            }
+                            if(rows[0]){
+                                callback(null, studentId);
+                            }else{
+                                callback('already hava seat');
+                            }
+                        });
+                    },
+                    function(studentId, callback){
+                        sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                        mysql.query(sql, function(err, rows){
+                            if(err){
+                                callback(err);
+                            }
+                            if(rows[0].used >= 3000){
+                                callback('nono seat');
+                            }else{
+                                callback(null, studentId);
+                            }
+                        });
+                    },
+                    function(studentId, callback){
+                        sql = "INSERT INTO study_room_seat (studentId) VALUES ('"+studentId+"')";
+                        mysql.query(sql, function(err, rows){
+                            if(err){
+                                callback(err);
+                            }
+                            callback(null);
+                        });
+                    },
+                    function(callback){
+                        sql = "SELECT LAST_INSERT_ID() AS seat";
+                        mysql.query(sql, function(err, rows){
+                            if(err){
+                                callback(err);
+                            }
+                            callback(null, rows[0].seat);
+                        });
+                    }
+                ], function(err, seat){
+                    if(err && err == 'none user'){
+                        res.value = 'Invaild Card';
+                    }
+                    else if(err && err == 'none seat'){
+                        res.value = 'No Empty Seat';
+                    }
+                    else if(err && err == 'already have seat'){
+                        res.value = 'Already Hava a Seat';
+                    }
+                    else if(err){
+                        res.value = 'Error';
+                    }
+                    else{
+                        res.value = seat;
+                    }
+                    sock.write(JSON.stringify(res));
+                });
             default:
         }
     });
