@@ -148,6 +148,7 @@ module.exports = function(sock){
                         res.value = 'Already Hava a Seat';
                     }
                     else if(err){
+                        console.log(err);
                         res.value = 'Error';
                     }
                     else{
@@ -163,7 +164,7 @@ module.exports = function(sock){
                 sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
                 mysql.query(sql, function(err, rows){
                     if(err){
-                        callback(err);
+                        console.log(err);
                     }
                     res.value = 3000 - rows[0].used;
                     sock.write(JSON.stringify(res));
