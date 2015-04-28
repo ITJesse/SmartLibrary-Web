@@ -75,7 +75,7 @@ module.exports = function(sock){
                     sock.write(JSON.stringify(json));
                 });
                 break;
-            case "12":
+            case "14":
                 var res = {};
                 res.mac = mac;
                 res.type = "12";
