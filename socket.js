@@ -155,6 +155,20 @@ module.exports = function(sock){
                     }
                     sock.write(JSON.stringify(res));
                 });
+                break;
+            case "15":
+                var res = {};
+                res.mac = mac;
+                res.type = "12";
+                sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                mysql.query(sql, function(err, rows){
+                    if(err){
+                        callback(err);
+                    }
+                    res.value = 3000 - rows[0].used;
+                    sock.write(JSON.stringify(res));
+                });
+                break;
             default:
         }
     });
