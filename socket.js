@@ -78,7 +78,7 @@ module.exports = function(sock){
             case "14":
                 var res = {};
                 res.mac = mac;
-                res.type = "12";
+                res.type = "14";
                 async.waterfall([
                     function(callback){
                         sql = "SELECT * FROM student_bind WHERE uid = '"+value+"'";
@@ -159,7 +159,7 @@ module.exports = function(sock){
             case "15":
                 var res = {};
                 res.mac = mac;
-                res.type = "12";
+                res.type = "15";
                 sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
                 mysql.query(sql, function(err, rows){
                     if(err){
