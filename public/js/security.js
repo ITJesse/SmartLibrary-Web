@@ -3,9 +3,11 @@ var liveCameraInterval;
 var resize = function() {
     var width = $('#liveCameraContainer').width();
     var height = $('#liveCameraContainer').height();
-    // $('#liveCamera').width(width);
-    $('.panel-body img').height(width * 0.75);
-    $('.panel-body').height(height);
+    if(width  * 0.75 < height){
+        $('#liveCamera').height(width * 0.75);
+    }else{
+        $('#liveCamera').width(height / 0.75);
+    }
 }
 
 var startLiveCamera = function(){

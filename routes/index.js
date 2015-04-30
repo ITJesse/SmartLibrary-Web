@@ -150,4 +150,11 @@ router.get('/security', function(req, res, next) {
     });
 });
 
+router.get('/switch', function(req, res, next) {
+    res.render('switch', {
+        title: '开关控制',
+        layout: layout
+    });
+});
+
 module.exports = router;

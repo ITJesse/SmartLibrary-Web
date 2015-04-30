@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            .row
+                .col-lg-4
+                    .panel.panel-default
+                        .panel-heading
+                            h4.clearfix
+                                span.left 节能灯（阅览室）
+                                form.panel-form.right(action='')
+                                    .iToggle-button
+                                        input.nostyle(type='checkbox')
+                            a.minimize(href='#') 收起
+                        .panel-body.securityImg
+                            img(src="/images/mod/light.jpg")
+                .col-lg-4
+                    .panel.panel-default
+                        .panel-heading
+                            h4.clearfix
+                                span.left 节能灯（自习室）
+                                form.panel-form.right(action='')
+                                    .iToggle-button
+                                        input.nostyle(type='checkbox')
+                            a.minimize(href='#') 收起
+                        .panel-body.securityImg
+                            img(src="/images/mod/light.jpg")
+                .col-lg-4
+                    .panel.panel-default
+                        .panel-heading
+                            h4.clearfix
+                                span.left 通风扇
+                                form.panel-form.right(action='')
+                                    .iToggle-button
+                                        input.nostyle(type='checkbox')
+                            a.minimize(href='#') 收起
+                        .panel-body.securityImg
+                            img(src="/images/mod/fan.jpg")
+                
+block footer
+    script(type="text/javascript", src="js/switch.js")
