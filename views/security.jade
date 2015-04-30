@@ -14,8 +14,19 @@ block content
                                     .iToggle-button
                                         input#liveCameraSwitch.nostyle(type='checkbox', checked='checked')
                             a.minimize(href='#') 收起
-                        .panel-body#liveCameraContainer
-                            img#liveCamera(src="/API/Web/GetCameraImage", width="320", height="240")
+                        .panel-body#liveCameraContainer.securityImg
+                            img#liveCamera(src="/API/Web/GetCameraImage")
+                .col-lg-4
+                    .panel.panel-default
+                        .panel-heading
+                            h4.clearfix
+                                span.left 报警器
+                                form.panel-form.right(action='')
+                                    .iToggle-button
+                                        input.nostyle(type='checkbox')
+                            a.minimize(href='#') 收起
+                        .panel-body.securityImg
+                            img(src="/images/mod/alarm.jpg")
                 
 block footer
     script(type="text/javascript", src="js/security.js")

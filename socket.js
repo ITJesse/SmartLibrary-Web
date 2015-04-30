@@ -144,7 +144,7 @@ module.exports = function(sock){
                     else if(err && err == 'none seat'){
                         res.value = 'No Empty Seat';
                     }
-                    else if(err && err == 'already have seat'){
+                    else if(err && err == 'already hava seat'){
                         res.value = 'Already Hava a Seat';
                     }
                     else if(err){

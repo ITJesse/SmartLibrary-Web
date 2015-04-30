@@ -2,8 +2,10 @@ var liveCameraInterval;
 
 var resize = function() {
     var width = $('#liveCameraContainer').width();
-    $('#liveCamera').width(width);
-    $('#liveCamera').height(width * 0.75);
+    var height = $('#liveCameraContainer').height();
+    // $('#liveCamera').width(width);
+    $('.panel-body img').height(width * 0.75);
+    $('.panel-body').height(height);
 }
 
 var startLiveCamera = function(){

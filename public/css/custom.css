@@ -43,3 +43,12 @@ form .control-group .controls-row .btn.special {margin-left: 10px;}
 	margin: auto;
 	padding-top: 90px;
 }
+
+.panel-body img {
+    max-width: 100%;
+	height: auto;
+}
+
+.securityImg{
+	text-align: center;
+}
