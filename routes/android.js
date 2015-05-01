@@ -3,8 +3,6 @@ var config = require('../modules/config');
 
 //Module
 var crypto = require('crypto');
-var request = require('request');
-var cheerio = require('cheerio');
 
 //Custom Module
 var checkStr = require('../modules/antiInject');
