@@ -26,7 +26,7 @@ var cameraFolderCleaner = function(){
     fs.readdir(config.common.cameraUploadDir, function (err, files) {
         if (err) return console.log(err);
         files.forEach(function (filename) {
-            var stat = fs.statSync(url);
+            var stat = fs.statSync(config.common.cameraUploadDir + filename);
             if(stat.isFile()) fs.unlinkSync(config.common.cameraUploadDir + filename);
         });
     });
