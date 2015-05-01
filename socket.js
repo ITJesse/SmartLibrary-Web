@@ -55,7 +55,7 @@ module.exports = function(io){
                 case "11":
                     break;
                 case "100":
-                    sql = "SELECT * FROM xbee_list";
+                    sql = "SELECT * FROM xbee_list WHERE type <= 4";
                     var xbeeList = [];
                     mysql.query(sql, function(err, rows){
                         if(err){
@@ -88,12 +88,12 @@ module.exports = function(io){
                             });
                         },
                         function(studentId, callback){
-                            sql = "SELECT * FROM study_room_seat WHERE studentId = '"+studentId+"' AND isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                            sql = "SELECT * FROM study_room_seat WHERE (studentId = '"+studentId+"' AND isOut = 0) OR (studentId = '"+studentId+"' AND isOut = 1 AND (NOW() - outTime) < 1800)";
                             mysql.query(sql, function(err, rows){
                                 if(err){
                                     callback(err);
                                 }
-                                if(rows[0]){
+                                if(!rows[0]){
                                     callback(null, studentId);
                                 }else{
                                     callback('already hava seat');
@@ -101,7 +101,7 @@ module.exports = function(io){
                             });
                         },
                         function(studentId, callback){
-                            sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                            sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND (NOW() - outTime) < 1800)";
                             mysql.query(sql, function(err, rows){
                                 if(err){
                                     callback(err);
@@ -114,15 +114,19 @@ module.exports = function(io){
                             });
                         },
                         function(studentId, callback){
-                            sql = "SELECT seat FROM study_room_seat WHERE isOut = 1 AND NOW() - outTime < 1800 LIMIT 1";
+                            sql = "SELECT seat FROM study_room_seat WHERE isOut = 1 AND (NOW() - outTime) > 1800 LIMIT 1";
                             mysql.query(sql, function(err, rows){
                                 if(err){
                                     callback(err);
                                 }
-                                callback(null, rows[0].seat);
+                                if(rows[0]){
+                                    callback(null, rows[0].seat, studentId);
+                                }else{
+                                    callback(null, null, studentId);
+                                }
                             });
                         },
-                        function(seat, callback){
+                        function(seat, studentId, callback){
                             if(seat){
                                 sql = "UPDATE study_room_seat SET studentId = '"+studentId+"', isOut = 0, outTime = NULL WHERE seat = '"+seat+"'";
                                 mysql.query(sql, function(err, rows){
@@ -171,11 +175,12 @@ module.exports = function(io){
                     var res = {};
                     res.mac = mac;
                     res.type = "15";
-                    sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND NOW() - outTime < 1800)";
+                    sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND (NOW() - outTime) < 1800)";
                     mysql.query(sql, function(err, rows){
                         if(err){
                             console.log(err);
                         }
+                        // res.value = 3000 - rows[0].used - Math.floor(Math.random()*100); //测试用
                         res.value = 3000 - rows[0].used;
                         socket.emit('data', res);
                     });
