@@ -8,6 +8,30 @@ var app = require('../app');
 var debug = require('debug')('SmartLibraryWeb:server');
 var http = require('http');
 var net = require('net');
+var later = require('later');
+var fs = require('fs');
+var config = require('../modules/config');
+
+/**
+ * Start camera folder cleaner.
+ */
+var cameraFolderCleanerSched = {
+    schedules: [{
+        m: [0, 10, 20, 30, 40, 50]
+    }]
+};
+var cameraFolderCleaner = function(){
+    console.log(new Date());
+    console.log("Do the camera folder clean...");
+    fs.readdir(config.common.cameraUploadDir, function (err, files) {
+        if (err) return console.log(err);
+        files.forEach(function (filename) {
+            var stat = fs.statSync(url);
+            if(stat.isFile()) fs.unlinkSync(config.common.cameraUploadDir + filename);
+        });
+    });
+};
+getValTimer = later.setInterval(cameraFolderCleaner, cameraFolderCleanerSched);
 
 /**
  * Get port from environment and store in Express.
