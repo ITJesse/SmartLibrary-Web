@@ -1,16 +1,17 @@
 var mysql = require('./modules/mysql');
 var async = require('async');
 
-module.exports = function(sock){
+module.exports = function(io){
 
     io.on('connection', function(socket){
         console.log('RaspberryPi Connected!');
+
         socket.on('disconnect', function(){
             console.log('RaspberryPi Disconnected!');
         });
 
-        sock.on('data', function(data) {
-            console.log('DATA ' + sock.remoteAddress + ': ' + data);
+        socket.on('data', function(data) {
+            console.log('Data: ' + JSON.stringify(data));
             var mac = data.mac;
             var type = data.type;
             var value = data.value;
@@ -44,7 +45,7 @@ module.exports = function(sock){
                         }else{
                             res.value = '1';
                         }
-                        sock.emit('data', res);
+                        socket.emit('data', res);
                     });
                     break;
                 case "7":
@@ -65,7 +66,7 @@ module.exports = function(sock){
                         }
                         // console.log(xbeeList);
                         var json = {type: "100", value: xbeeList};
-                        sock.emit('data', json);
+                        socket.emit('data', json);
                     });
                     break;
                 case "14":
@@ -148,22 +149,22 @@ module.exports = function(sock){
                         }
                     ], function(err, seat){
                         if(err && err == 'none user'){
-                            res.value = 'Invaild Card';
+                            res.value = '1'; //Invaild Card;
                         }
                         else if(err && err == 'none seat'){
-                            res.value = 'No Empty Seat';
+                            res.value = '2'; //No Empty Seat;
                         }
                         else if(err && err == 'already hava seat'){
-                            res.value = 'Already Hava a Seat';
+                            res.value = '3'; //Already Hava a Seat;
                         }
                         else if(err){
                             console.log(err);
-                            res.value = 'Error';
+                            res.value = '4'; //Error;
                         }
                         else{
-                            res.value = seat;
+                            res.value = '0|' + seat;
                         }
-                        sock.emit('data', res);
+                        socket.emit('data', res);
                     });
                     break;
                 case "15":
@@ -176,7 +177,7 @@ module.exports = function(sock){
                             console.log(err);
                         }
                         res.value = 3000 - rows[0].used;
-                        sock.emit('data', res);
+                        socket.emit('data', res);
                     });
                     break;
                 default:

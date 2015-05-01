@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var async = require('async');
-var colors = require('colors');
 
 var mysql = require('../modules/mysql');
 
