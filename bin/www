@@ -8,7 +8,6 @@ var app = require('../app');
 var debug = require('debug')('SmartLibraryWeb:server');
 var http = require('http');
 var net = require('net');
-var socket = require('../socket');
 
 /**
  * Get port from environment and store in Express.
@@ -20,12 +19,6 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-var PORT = '9478';
-var HOST = '0.0.0.0';
-net.createServer(function(sock) {
-    socket(sock);
-}).listen(PORT, HOST);
-
 var server = http.createServer(app);
 
 /**

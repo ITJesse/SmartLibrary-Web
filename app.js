@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var io = require('socket.io')(http);
 
+var socket = require('./socket')(io);
 var config = require('./modules/config');
 var routes = require('./routes/index');
 var login = require('./routes/login');
