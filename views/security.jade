@@ -5,32 +5,34 @@ block content
     #content.clearfix
         .contentwrapper
             .row
-                .col-lg-4
+                .col-lg-4.col-md-6.col-xs-12
                     .panel.panel-default
                         .panel-heading
                             h4.clearfix
                                 span.left 实时监控
                                 form.panel-form.right(action='')
-                                    .iToggle-button
+                                    .iToggle-button#camera
                                         input#liveCameraSwitch.nostyle(type='checkbox', checked='checked')
                             a.minimize(href='#') 收起
                         .panel-body#liveCameraContainer.securityImg
                             img#liveCamera(src="/API/Web/GetCameraImage")
+            .row
                 - for(var i in list)
-                    .col-lg-4
+                    .col-lg-4.col-md-6.col-xs-12
                         .panel.panel-default(data-type="#{list[i].type}", data-sensorid="#{list[i].id}")
                             .panel-heading
                                 h4.clearfix
                                     span.left #{list[i].name}
-                                    form.panel-form.right(action='')
-                                        -if(list[i].type == 9 || list[i].type == 10)
-                                            .iToggle-button
-                                                input.nostyle(type='checkbox')
-                                        - else
-                                            span.label.label-success 安全
+                                    - if(list[i].type == 9 || list[i].type == 10)
+                                        .panel-form.right
+                                            .iToggle-button(data-sensorid="#{list[i].id}")
+                                                input.nostyle(type='checkbox', data-sensorid="#{list[i].id}")
+                                    - else
+                                        span.label.label-success(data-sensorid="#{list[i].id}") 安全
                                 a.minimize(href='#') 收起
                             .panel-body.securityImg
                                 img(src="/images/mod/#{list[i].type}.jpg")
                 
 block footer
+    script(type="text/javascript", src="/socket.io/socket.io.js")
     script(type="text/javascript", src="js/security.js")

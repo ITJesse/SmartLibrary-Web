@@ -3,9 +3,9 @@ var async = require('async');
 
 function xbee(mac, type, value, socket){
     this.mac = mac;
-    this.type = type;
     this.value = value;
-    this.socket = socket
+    this.type = type;
+    this.socket = socket;
 }
 
 xbee.prototype.insertSensorsDataIntoDatabase = function(){
@@ -57,8 +57,8 @@ xbee.prototype.getXbeeList = function(){
 xbee.prototype.getStudyRoomSeat = function(){
     var _this = this;
     var res = {};
-    res.mac = mac;
-    res.type = "14";
+    res.mac = _this.mac;
+    res.type = "15";
     async.waterfall([
         function(callback){
             sql = "SELECT * FROM student_bind WHERE uid = '"+ _this.value +"'";
@@ -158,11 +158,11 @@ xbee.prototype.getStudyRoomSeat = function(){
     });
 };
 
-xbee.getStudyRoomUsed = function(){
+xbee.prototype.getStudyRoomUsed = function(){
     var _this = this;
     var res = {};
     res.mac = mac;
-    res.type = "15";
+    res.type = "16";
     sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND (NOW() - outTime) < 1800)";
     mysql.query(sql, function(err, rows){
         if(err){
@@ -171,6 +171,88 @@ xbee.getStudyRoomUsed = function(){
         // res.value = 3000 - rows[0].used - Math.floor(Math.random()*100); //测试用
         res.value = 3000 - rows[0].used;
         _this.socket.emit('data', res);
+    });
+};
+
+xbee.prototype.getSensorData = function(){
+    var _this = this;
+    var res = {};
+    res.mac = _this.mac;
+    res.type = _this.type;
+    res.value = "0";
+    console.log("Send: " + JSON.stringify(res));
+    _this.socket.broadcast.emit('data', res);
+};
+
+xbee.prototype.setSwitchOn = function(){
+    var _this = this;
+    var res = {};
+    res.mac = _this.mac;
+    if(_this.type == "9"){
+        res.type = "101";
+    }
+    else if(_this.type == "10"){
+        res.type = "102";
+    }
+
+    res.value = "1";
+    _this.socket.broadcast.emit('data', res);
+};
+
+xbee.prototype.setSwitchOff = function(){
+    var _this = this;
+    var res = {};
+    res.mac = _this.mac;
+    if(_this.type == "9"){
+        res.type = "101";
+    }
+    else if(_this.type == "10"){
+        res.type = "102";
+    }
+
+    res.value = "0";
+    _this.socket.broadcast.emit('data', res);
+};
+
+xbee.prototype.returnSensorDataToWeb = function(){
+    var _this = this;
+    var res = {};
+
+    if(_this.type == "4"){
+        sql = "SELECT mac  FROM xbee_list WHERE type = 9";
+        mysql.query(sql, function(err, rows){
+            if(err) return console.log(err);
+            if(rows[0]){
+                res.mac = rows[0].mac;
+                res.type = "101";
+                res.value = _this.value;
+                _this.socket.emit('data', res);
+            }
+        });
+    }
+
+    if(_this.type == "5"){
+        sql = "SELECT mac FROM xbee_list WHERE type = 10";
+        mysql.query(sql, function(err, rows){
+            if(err) return console.log(err);
+            if(rows[0]){
+                res.mac = rows[0].mac;
+                res.type = "102";
+                res.value = _this.value;
+                _this.socket.broadcast.emit('data', res);
+            }
+        });
+    }
+
+    sql = "SELECT id FROM xbee_list WHERE mac = '"+ _this.mac +"' AND type = '"+ _this.type +"'";
+    mysql.query(sql, function(err, rows){
+        if(err) return console.log(err);
+        if(rows[0]){
+            var web = {};
+            web.sensorId = rows[0].id;
+            web.value = _this.value;
+            _this.socket.broadcast.emit('control return', web);
+        }
     });
 };
 
