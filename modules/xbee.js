@@ -39,7 +39,7 @@ xbee.prototype.checkUidForGateway = function(){
 
 xbee.prototype.getXbeeList = function(){
     var _this = this;
-    var sql = "SELECT * FROM xbee_list WHERE type <= 4";
+    var sql = "SELECT * FROM xbee_list WHERE auto_fetch = 1";
     var xbeeList = [];
     mysql.query(sql, function(err, rows){
         if(err){
