@@ -143,16 +143,26 @@ router.get('/environment', function(req, res, next) {
 });
 
 router.get('/security', function(req, res, next) {
-    res.render('security', {
-        title: '安防监测',
-        layout: layout
+    var sql = "SELECT * FROM xbee_list WHERE type = 4 OR type = 5 OR type = 9 OR type = 10 OR type = 15";
+    mysql.query(sql, function(err, rows) {
+        if (err) return console.log(err);
+        res.render('security', {
+            title: '安防监测',
+            layout: layout,
+            list: rows
+        });
     });
 });
 
 router.get('/switch', function(req, res, next) {
-    res.render('switch', {
-        title: '开关控制',
-        layout: layout
+    var sql = "SELECT * FROM xbee_list WHERE type = 9 OR type = 11";
+    mysql.query(sql, function(err, rows) {
+        if (err) return console.log(err);
+        res.render('switch', {
+            title: '开关控制',
+            layout: layout,
+            list: rows
+        });
     });
 });
 
