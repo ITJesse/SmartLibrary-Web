@@ -46,7 +46,8 @@ var options = {
     },
     xaxis: {
         mode: "time",
-        timeformat: "%m/%d %H:%M"
+        timeformat: "%m/%d %H:%M",
+        timezone: "browser"
     },
     yaxis: {
         min: 0

@@ -9,7 +9,8 @@ var config = require('../modules/config');
 router.get('/GetChartVal', function(req, res) {
     var id = req.query.id;
     var startTime = parseInt(req.query.startTime) ? Math.ceil((new Date()).valueOf() / 1000) - req.query.startTime : Math.ceil(((new Date()).valueOf() - 10 * 60 * 1000) / 1000);
-    var sql = "SELECT (UNIX_TIMESTAMP(xbee_data.time) + 8 * 60 * 60) * 1000 AS time, xbee_data.`value` FROM xbee_list INNER JOIN xbee_data ON xbee_list.mac = xbee_data.mac AND xbee_data.type = xbee_list.type WHERE xbee_list.id = " + id + " AND UNIX_TIMESTAMP(xbee_data.time) > " + startTime + " ORDER BY xbee_data.time ASC";
+    console.log(startTime);
+    var sql = "SELECT UNIX_TIMESTAMP(xbee_data.time) AS time, xbee_data.`value` FROM xbee_list INNER JOIN xbee_data ON xbee_list.mac = xbee_data.mac AND xbee_data.type = xbee_list.type WHERE xbee_list.id = " + id + " AND UNIX_TIMESTAMP(xbee_data.time) > " + startTime + " ORDER BY xbee_data.time ASC";
     mysql.query(sql, function(err, rows) {
         if(err){
             console.log(err);
@@ -20,11 +21,11 @@ router.get('/GetChartVal', function(req, res) {
         if(rows.length > 50){
             var radio = Math.floor(rows.length / 50);
             for(var i = 0; i < 50 * radio; i = i + radio){
-                data.push([rows[i].time, parseFloat(rows[i].value)]);
+                data.push([rows[i].time * 1000, parseFloat(rows[i].value)]);
             }
         }else{
             for(var i in rows){
-                data.push([rows[i].time, parseFloat(rows[i].value)]);
+                data.push([rows[i].time * 1000, parseFloat(rows[i].value)]);
             }
         }
         var sql = "SELECT name FROM xbee_list WHERE id = '"+id+"'";
