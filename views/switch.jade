@@ -7,7 +7,7 @@ block content
             .row
                 - for(var i in list)
                     .col-lg-4
-                        .panel.panel-default
+                        .panel.panel-default(data-type="#{list[i].type}", data-sensorid="#{list[i].id}")
                             .panel-heading
                                 h4.clearfix
                                     span.left #{list[i].name}
