@@ -56,6 +56,16 @@ $(document).on('ready', function() {
         socket.on('control return', function (data) {
             console.log("Data recived: " + JSON.stringify(data));
 
+            $('.iToggle-button[data-sensorid='+data.sensorId+']').toggleButtons('destroy');
+
+            var type = $('.switch[data-sensorid='+data.sensorId+']').data().type;
+
+            if(type == 9 || type == 10){
+                $('.switch[data-sensorid='+data.sensorId+']').html('<div class="panel-form right"><div data-sensorid="'+data.sensorId+'" class="iToggle-button"><input type="checkbox" data-sensorid="'+data.sensorId+'" class="nostyle"></div></div>');
+            }else{
+                $('.switch[data-sensorid='+data.sensorId+']').html('<span data-sensorid="'+data.sensorId+'" class="label label-success">安全</span>');
+            }
+
             if(data.value == "1"){
                 $('input[data-sensorid='+data.sensorId+']').attr('checked', 'checked');
                 $('span[data-sensorid='+data.sensorId+']').removeClass('label-success');

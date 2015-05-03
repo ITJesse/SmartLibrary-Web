@@ -219,7 +219,7 @@ xbee.prototype.returnSensorDataToWeb = function(){
     var res = {};
 
     if(_this.type == "4"){
-        sql = "SELECT mac  FROM xbee_list WHERE type = 9";
+        sql = "SELECT id, mac FROM xbee_list WHERE type = 9";
         mysql.query(sql, function(err, rows){
             if(err) return console.log(err);
             if(rows[0]){
@@ -227,19 +227,29 @@ xbee.prototype.returnSensorDataToWeb = function(){
                 res.type = "101";
                 res.value = _this.value;
                 _this.socket.emit('data', res);
+
+                var web = {};
+                web.sensorId = rows[0].id;
+                web.value = _this.value;
+                _this.socket.broadcast.emit('control return', web);
             }
         });
     }
 
     if(_this.type == "5"){
-        sql = "SELECT mac FROM xbee_list WHERE type = 10";
+        sql = "SELECT id, mac FROM xbee_list WHERE type = 10";
         mysql.query(sql, function(err, rows){
             if(err) return console.log(err);
             if(rows[0]){
                 res.mac = rows[0].mac;
                 res.type = "102";
                 res.value = _this.value;
-                _this.socket.broadcast.emit('data', res);
+                _this.socket.emit('data', res);
+
+                var web = {};
+                web.sensorId = rows[0].id;
+                web.value = _this.value;
+                _this.socket.broadcast.emit('control return', web);
             }
         });
     }

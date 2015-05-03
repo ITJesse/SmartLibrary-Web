@@ -16,19 +16,15 @@ block content
                             a.minimize(href='#') 收起
                         .panel-body#liveCameraContainer.securityImg
                             img#liveCamera(src="/API/Web/GetCameraImage")
-            .row
                 - for(var i in list)
                     .col-lg-4.col-md-6.col-xs-12
                         .panel.panel-default(data-type="#{list[i].type}", data-sensorid="#{list[i].id}")
                             .panel-heading
                                 h4.clearfix
                                     span.left #{list[i].name}
-                                    - if(list[i].type == 9 || list[i].type == 10)
-                                        .panel-form.right
-                                            .iToggle-button(data-sensorid="#{list[i].id}")
-                                                input.nostyle(type='checkbox', data-sensorid="#{list[i].id}")
-                                    - else
-                                        span.label.label-success(data-sensorid="#{list[i].id}") 安全
+                                    .switch(data-type="#{list[i].type}", data-sensorid="#{list[i].id}")
+                                        span.loader
+                                            img(src="images/loader.gif" width="16" height="16" alt="")
                                 a.minimize(href='#') 收起
                             .panel-body.securityImg
                                 img(src="/images/mod/#{list[i].type}.jpg")
