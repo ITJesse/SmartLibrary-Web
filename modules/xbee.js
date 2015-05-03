@@ -42,9 +42,7 @@ xbee.prototype.getXbeeList = function(){
     var sql = "SELECT * FROM xbee_list WHERE auto_fetch = 1";
     var xbeeList = [];
     mysql.query(sql, function(err, rows){
-        if(err){
-            return callback(err);
-        }
+        if(err) return console.log(err);
         for(var i in rows){
             xbeeList.push(rows[i]);
         }
