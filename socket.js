@@ -53,31 +53,32 @@ module.exports = function(io){
             var xbee = new Xbee(mac, type, value, socket);
 
             switch(type){
-                case "1":
-                case "2":
-                case "3":
-                case "12":
-                case "13":
-                case "14":
+                case "1"://温度
+                case "2"://湿度
+                case "3"://亮度
+                case "12"://内存
+                case "13"://负载
+                case "14"://CPU温度
                     xbee.insertSensorsDataIntoDatabase();
                     break;
-                case "4":
-                case "5":
-                case "9":
-                case "10":
-                case "11":
+                case "4"://烟雾
+                case "5"://人体红外
+                case "9"://风扇
+                case "10"://声光报警
+                case "11"://电灯
+                case "17"://门磁
                     xbee.returnSensorDataToWeb();
                     break;
-                case "6":
+                case "6"://自习室读卡器
                     xbee.checkUidForGateway();
                     break;
-                case "7":
-                case "8":
+                case "7"://二维码
+                case "8"://门禁
                     break;
-                case "15":
+                case "15"://获取自习室座位号
                     xbee.getStudyRoomSeat();
                     break;
-                case "16":
+                case "16"://获取自习室空位
                     xbee.getStudyRoomUsed();
                     break;
                 case "100":
