@@ -44,15 +44,12 @@ form .control-group .controls-row .btn.special {margin-left: 10px;}
 	padding-top: 90px;
 }
 
-.panel-body {
+.securityImg {
+	text-align: center;
 	height: 280px;
 }
 
-.panel-body img {
+.securityImg img {
     max-width: 100%;
 	height: 250px;
-}
-
-.securityImg{
-	text-align: center;
 }
