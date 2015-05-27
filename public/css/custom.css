@@ -1,55 +1,97 @@
-﻿/* ------------------Put your custom code here--------------------*/
+/* ------------------Put your custom code here--------------------*/
 
-.control-label {font-weight: bold;}
-form .control-group:last-child {margin-bottom: 0;}
-form .control-group .controls-row {	margin-bottom: 5px;}
-form .control-group .controls-row textarea {margin-bottom: 15px;}
-form .control-group .controls-row .btn.special {margin-left: 10px;}
-
+.control-label {
+    font-weight: bold;
+}
+form .control-group:last-child {
+    margin-bottom: 0;
+}
+form .control-group .controls-row {
+    margin-bottom: 5px;
+}
+form .control-group .controls-row textarea {
+    margin-bottom: 15px;
+}
+form .control-group .controls-row .btn.special {
+    margin-left: 10px;
+}
 @media only screen and (max-width: 1360px) {
-	/* ------------------ Form styles --------------------*/
-	[class*="span6"] form .control-group .control-label {width: 120px;}
-	[class*="span6"] form .control-group .controls {margin-left: 150px;}
-}
+    /* ------------------ Form styles --------------------*/
 
+    [class*="span6"] form .control-group .control-label {
+        width: 120px;
+    }
+    [class*="span6"] form .control-group .controls {
+        margin-left: 150px;
+    }
+}
 @media only screen and (max-width: 1280px) {
-	/* ------------------ Form styles --------------------*/
-	[class*="span6"] form .control-group .control-label {width: 100%; text-align: left;margin-bottom: 5px;}
-	[class*="span6"] form .control-group .controls {margin-left: 0;}
-	[class*="span6"] form .control-group {margin-bottom: 10px;}
-	[class*="span6"] form .form-actions {padding-left: 20px;}
-}
+    /* ------------------ Form styles --------------------*/
 
+    [class*="span6"] form .control-group .control-label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    [class*="span6"] form .control-group .controls {
+        margin-left: 0;
+    }
+    [class*="span6"] form .control-group {
+        margin-bottom: 10px;
+    }
+    [class*="span6"] form .form-actions {
+        padding-left: 20px;
+    }
+}
 @media only screen and (max-width: 767px) {
-	/* ------------------ Form styles--------------------*/
-	form .control-group [class*="span"] {margin-bottom: 10px !important;}
-	form .control-group .control-label {width: 100%; text-align: left;margin-bottom: 5px;}
-	form .control-group .controls {margin-left: 0;}
-	form .control-group {margin-bottom: 10px;}
-	form .form-actions {padding-left: 20px;}
-	form .control-group .controls-row [class*="span"] {margin-left: 0 !important;}
-	form .control-group .controls-row .btn.special {margin-left: 0px;}
-}
+    /* ------------------ Form styles--------------------*/
 
+    form .control-group [class*="span"] {
+        margin-bottom: 10px !important;
+    }
+    form .control-group .control-label {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    form .control-group .controls {
+        margin-left: 0;
+    }
+    form .control-group {
+        margin-bottom: 10px;
+    }
+    form .form-actions {
+        padding-left: 20px;
+    }
+    form .control-group .controls-row [class*="span"] {
+        margin-left: 0 !important;
+    }
+    form .control-group .controls-row .btn.special {
+        margin-left: 0px;
+    }
+}
 .simple-chart {
-	height: 230px;
-	width:100%;
-	margin-top: 10px;
+    height: 230px;
+    width: 100%;
+    margin-top: 10px;
 }
-
 .chart-loading {
-	clear: both;
-	display: block;
-	margin: auto;
-	padding-top: 90px;
+    clear: both;
+    display: block;
+    margin: auto;
+    padding-top: 90px;
 }
-
 .securityImg {
-	text-align: center;
-	height: 280px;
+    text-align: center;
+    height: 280px;
 }
-
 .securityImg img {
     max-width: 100%;
-	height: 250px;
+    height: 250px;
+}
+h4 .label {
+    float: none !important;
+    position: absolute;
+    right: 40px;
+    margin-right: 0px !important;
 }
