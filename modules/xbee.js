@@ -29,15 +29,16 @@ xbee.prototype.checkUidForGateway = function(){
             res.value = '0';
             _this.socket.emit('data', res);
         }else{
-            var sql = "SELECT (COUNT(`in`) - COUNT(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + rows[0].studentId + "'";
+            var studentId = rows[0].studentId;
+            var sql = "SELECT (COUNT(`in`) - COUNT(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
             mysql.query(sql, function(err, rows){
                 if(err) return console.log(err);
-                if(!rows[0] || !rows[0].check){
+                if(!rows[0].check){
                     res.value = '1';
                     _this.socket.emit('data', res);
 
                     //增加入馆记录
-                    var sql = "INSERT INTO student_enter_log (studentId, `in`, `out`) VALUES ('" + rows[0].studentId + "', 1, 0)";
+                    var sql = "INSERT INTO student_enter_log (studentId, `in`, `out`) VALUES ('" + studentId + "', 1, 0)";
                     mysql.query(sql, function(err){
                         if(err) return console.log(err);
                     });
