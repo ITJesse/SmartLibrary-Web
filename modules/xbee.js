@@ -22,7 +22,7 @@ xbee.prototype.checkUidForGateway = function(){
     res.mac = _this.mac;
     res.type = "8";
 
-    var sql = "SELECT * FROM student_bind WHERE uid = '"+ _this.value +"'";
+    var sql = "SELECT studentId FROM student_bind WHERE uid = '"+ _this.value +"'";
     mysql.query(sql, function(err, rows){
         if(err){
             res.value = '0';

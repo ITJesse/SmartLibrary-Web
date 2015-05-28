@@ -69,7 +69,7 @@ module.exports = function(io){
                 case "17"://门磁
                     xbee.returnSensorDataToWeb();
                     break;
-                case "6"://自习室读卡器
+                case "6"://门禁读卡器
                     xbee.checkUidForGateway();
                     break;
                 case "7"://二维码
