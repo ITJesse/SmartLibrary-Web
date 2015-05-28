@@ -24,16 +24,31 @@ xbee.prototype.checkUidForGateway = function(){
 
     var sql = "SELECT studentId FROM student_bind WHERE uid = '"+ _this.value +"'";
     mysql.query(sql, function(err, rows){
-        if(err){
-            res.value = '0';
-            return console.log(err);
-        }
+        if(err) return console.log(err);
         if(!rows[0]){
             res.value = '0';
+            _this.socket.emit('data', res);
         }else{
-            res.value = '1';
+            var sql = "SELECT (COUNT(in) - COUNT(out)) AS check FROM student_enter_log WHERE studentId = '" + rows[0].studentId + "'";
+            mysql.query(sql, function(err, rows){
+                if(err) return console.log(err);
+                if(!rows[0] || !rows[0].check){
+                    res.value = '1';
+                    _this.socket.emit('data', res);
+
+                    //增加入馆记录
+                    var sql = "INSERT INTO student_enter_log (studentId, in, out) VALUES ('" + rows[0].studentId + "', 1, 0)";
+                    mysql.query(sql, function(err){
+                        if(err) return console.log(err);
+                    });
+
+                }else{
+                    res.value = '0';
+                    _this.socket.emit('data', res);
+                }
+            });
+
         }
-        _this.socket.emit('data', res);
     });
 };
 
