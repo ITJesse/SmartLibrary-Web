@@ -190,7 +190,7 @@ xbee.prototype.getStudyRoomSeat = function(){
 xbee.prototype.getStudyRoomUsed = function(){
     var _this = this;
     var res = {};
-    res.mac = mac;
+    res.mac = _this.mac;
     res.type = "16";
     sql = "SELECT COUNT(studentId) AS used FROM study_room_seat WHERE isOut = 0 OR (isOut = 1 AND (NOW() - outTime) < 1800)";
     mysql.query(sql, function(err, rows){
