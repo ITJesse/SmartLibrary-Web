@@ -37,7 +37,7 @@ xbee.prototype.checkUidForGateway = function(){
                     _this.socket.emit('data', res);
 
                     //增加入馆记录
-                    var sql = "INSERT INTO student_enter_log (studentId, in, out) VALUES ('" + rows[0].studentId + "', 1, 0)";
+                    var sql = "INSERT INTO student_enter_log (studentId, `in`, `out`) VALUES ('" + rows[0].studentId + "', 1, 0)";
                     mysql.query(sql, function(err){
                         if(err) return console.log(err);
                     });
