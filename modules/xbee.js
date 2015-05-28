@@ -29,7 +29,7 @@ xbee.prototype.checkUidForGateway = function(){
             res.value = '0';
             _this.socket.emit('data', res);
         }else{
-            var sql = "SELECT (COUNT(in) - COUNT(out)) AS check FROM student_enter_log WHERE studentId = '" + rows[0].studentId + "'";
+            var sql = "SELECT (COUNT(`in`) - COUNT(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + rows[0].studentId + "'";
             mysql.query(sql, function(err, rows){
                 if(err) return console.log(err);
                 if(!rows[0] || !rows[0].check){
