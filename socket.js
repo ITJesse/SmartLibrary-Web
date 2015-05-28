@@ -81,6 +81,9 @@ module.exports = function(io){
                 case "16"://获取自习室空位
                     xbee.getStudyRoomUsed();
                     break;
+                case "99":
+                    xbee.getAlarmList();
+                    break;
                 case "100":
                     xbee.getXbeeList();
                     break;

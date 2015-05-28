@@ -37,6 +37,21 @@ xbee.prototype.checkUidForGateway = function(){
     });
 };
 
+xbee.prototype.getAlarmList = function(){
+    var _this = this;
+    var sql = "SELECT * FROM xbee_list WHERE type = 9 OR type = 10";
+    var xbeeList = [];
+    mysql.query(sql, function(err, rows){
+        if(err) return console.log(err);
+        for(var i in rows){
+            xbeeList.push(rows[i]);
+        }
+        // console.log(xbeeList);
+        var json = {type: "99", value: xbeeList};
+        _this.socket.emit('data', json);
+    });
+};
+
 xbee.prototype.getXbeeList = function(){
     var _this = this;
     var sql = "SELECT * FROM xbee_list WHERE auto_fetch = 1";
