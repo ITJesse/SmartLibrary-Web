@@ -30,7 +30,7 @@ xbee.prototype.checkUidForGateway = function(){
             _this.socket.emit('data', res);
         }else{
             var studentId = rows[0].studentId;
-            var sql = "SELECT (COUNT(`in`) - COUNT(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
+            var sql = "SELECT (SUM(`in`) - SUM(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
             mysql.query(sql, function(err, rows){
                 if(err) return console.log(err);
                 if(!rows[0].check){
