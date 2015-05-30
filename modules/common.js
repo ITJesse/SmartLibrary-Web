@@ -296,7 +296,7 @@ exports.fetchLibraryBookList = function(str, strSearchType, match_flag, doctype,
 		'&orderby=' + 'desc' +
 		'&dept=' + 'ALL';
 	var options = {
-		uri: url,
+		uri: encodeURI(url),
 		timeout: 5000
 	};
 	console.log(url);
