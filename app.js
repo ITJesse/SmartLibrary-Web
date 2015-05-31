@@ -45,6 +45,7 @@ app.use('/API/Web/', web);
 //APP部分API路由
 app.all('/API/Android/*', android.checkSignString);
 app.post('/API/Android/Login', android.Login);
+app.post('/API/Android/CheckSessionId', android.checkSessionId);
 app.post('/API/Android/ForgetPass', android.forgetPass);
 app.post('/API/Android/LibraryHot', android.libraryHot);
 app.post('/API/Android/LibraryHotWords', android.libraryHotWords);

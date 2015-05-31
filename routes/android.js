@@ -29,6 +29,33 @@ exports.checkSignString = function(req, res, next) {
 	next();
 };
 
+//检查Session是否有效
+exports.checkSessionId = function(req, res) {
+	var sessionID = checkStr(req.body.sessionid);
+	var result = {};
+	if(!sessionID){
+		result.error = '-1';
+		return res.json(result);
+	}
+	common.checkSessionID(sessionID, function(err, userID){
+		if(err && err == 'Wrong SessionID'){
+			result.error = '-5';
+			return res.json(result);
+		}else if(err && err == 'Empty SessionID'){
+			result.error = '-7';
+			return res.json(result);
+		}else if(err){
+			console.log(err);
+			result.error = '-5';
+			return res.json(result);
+		}else{
+			result.error = null;
+			result.result = 'ok';
+			return res.json(result);
+		}
+	});
+};
+
 //查热门图书
 exports.libraryHot = function(req, res){
 	var classNum = checkStr(req.body.classNum);

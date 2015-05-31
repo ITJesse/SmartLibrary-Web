@@ -17,6 +17,13 @@ $("select").on("change", function() {
             request.userID = '1203020301';
             request.password = '1203020301';
             break;
+        case 'checkSessionId':
+            if(sessionId){
+                request.sessionid = sessionId;
+            }else{
+                request.sessionid = 'insert your sessionid';
+            }
+            break;
         case 'ForgetPass':
             request.userID = '1203020333';
             request.name = '朱艺博';
@@ -122,6 +129,10 @@ $('#submit').on('click', function() {
             case 'Login':
                 method = 'POST';
                 url = '/API/Android/Login';
+                break;
+            case 'checkSessionId':
+                method = 'POST';
+                url = '/API/Android/CheckSessionId';
                 break;
             case 'ForgetPass':
                 method = 'POST';
