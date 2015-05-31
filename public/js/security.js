@@ -20,6 +20,7 @@ var refresh = function(){
             var res = {};
             res.sensorId = sensorId;
             res.type = "1";
+            console.log("Send: " + JSON.stringify(res));
             socket.emit('control', res);
         }
     })
