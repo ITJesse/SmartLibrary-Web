@@ -247,8 +247,7 @@ xbee.prototype.setSwitchOff = function(){
         res.type = _this.type;
         res.value = "00";
     }
-
-    res.value = "0";
+    
     _this.socket.broadcast.emit('data', res);
 };
 
