@@ -219,12 +219,16 @@ xbee.prototype.setSwitchOn = function(){
     res.mac = _this.mac;
     if(_this.type == "9"){
         res.type = "101";
+        res.value = "1";
     }
     else if(_this.type == "10"){
         res.type = "102";
+        res.value = "1";
+    }else{
+        res.type = _this.type;
+        res.value = "01";
     }
 
-    res.value = "1";
     _this.socket.broadcast.emit('data', res);
 };
 
@@ -234,9 +238,14 @@ xbee.prototype.setSwitchOff = function(){
     res.mac = _this.mac;
     if(_this.type == "9"){
         res.type = "101";
+        res.value = "0";
     }
     else if(_this.type == "10"){
         res.type = "102";
+        res.value = "0";
+    }else{
+        res.type = _this.type;
+        res.value = "00";
     }
 
     res.value = "0";
