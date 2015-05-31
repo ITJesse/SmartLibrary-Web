@@ -21,6 +21,8 @@ $(document).on('ready', function() {
 
         console.log("Connect to the server");
 
+        refresh();
+
         socket.on('control return', function (data) {
             console.log("Data recived: " + JSON.stringify(data));
 
@@ -70,8 +72,7 @@ $(document).on('ready', function() {
 
     socket.on('reconnect', function() {
         console.log('Reconnect to the Server!');
+        refresh();
     });
-
-    refresh();
 
 });
