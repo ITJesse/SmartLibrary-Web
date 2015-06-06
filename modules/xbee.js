@@ -61,7 +61,7 @@ xbee.prototype.checkQRCodeForGateway = function() {
     res.mac = _this.mac;
     res.type = "8";
 
-    var studentId = desUtils.DecryptDES(value, "withelper_itjesse", 0);
+    var studentId = desUtils.DecryptDES(_this.value, "withelper_itjesse", 0);
     var sql = "SELECT (SUM(`in`) - SUM(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
     mysql.query(sql, function(err, rows) {
         if (err) return console.log(err);
