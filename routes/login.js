@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var mysql = require('../modules/mysql');
+
 router.get('/', function(req, res, next) {
     if (req.session.isLogin) {
         res.redirect('/');
@@ -17,17 +19,32 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-    if (req.body.studentId == "1203020333" && req.body.password == "zyb940708") {
-        req.session.isLogin = 1;
-        res.redirect("/");
-    } else {
-        res.render('login', {
-            title: '登陆',
-            studentId: req.body.studentId,
-            password: req.body.password,
-            error: "登陆失败"
-        });
-    }
+    var studentId = req.body.username;
+    var password = req.body.password;
+    var sql = "SELECT * FROM wit_user WHERE studentId = '" + studentId + "'";
+    mysql.query(sql, function(err, rows){
+        if(err) return console.log(err);
+        if(!rows[0]){
+            return res.render('login', {
+                title: '登陆',
+                studentId: req.body.studentId,
+                password: req.body.password,
+                error: "用户不存在"
+            });
+        }else{
+            if(rows[0].pass != password){
+                return res.render('login', {
+                    title: '登陆',
+                    studentId: req.body.studentId,
+                    password: req.body.password,
+                    error: "密码不正确"
+                });
+            }else{
+                req.session.isLogin = 1;
+                res.redirect('/');
+            }
+        }
+    });
 });
 
 module.exports = router;

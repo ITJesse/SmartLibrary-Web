@@ -1,0 +1,63 @@
+doctype transitional
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title 登陆
+    // Mobile Specific Metas
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    // Force IE9 to render in normla mode
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    // Le styles
+    link(href='css/bootstrap/bootstrap.css', rel='stylesheet')
+    link(href='css/bootstrap/bootstrap-responsive.css', rel='stylesheet')
+    link(href='css/supr-theme/jquery.ui.supr.css', rel='stylesheet', type='text/css')
+    link(href='css/icons.css', rel='stylesheet', type='text/css')
+    link(href='plugins/forms/uniform/uniform.default.css', type='text/css', rel='stylesheet')
+    // Main stylesheets
+    link(href='css/main.css', rel='stylesheet', type='text/css')
+    script(type='text/javascript', src='js/libs/modernizr.js')
+  body.loginPage
+    .container
+      #header
+        .row
+          .navbar
+            .container
+              a.navbar-brand(href='/')
+                智慧图书馆
+          // /navbar
+        // End .row
+      // End #header
+    // End .container
+    .container
+      .loginContainer
+        form#loginForm.form-horizontal(action='/login', method='post', role='form')
+          .form-group
+            label.col-lg-12.control-label(for='username') 用户名：
+            .col-lg-12
+              input#username.form-control(type='text', name='username', value='', placeholder='请输入用户名')
+              span.icon16.icomoon-icon-user.right.gray.marginR10
+          // End .form-group
+          .form-group
+            label.col-lg-12.control-label(for='password') 密码：
+            .col-lg-12
+              input#password.form-control(type='password', name='password', value='', placeholder='请输入密码')
+              span.icon16.icomoon-icon-lock.right.gray.marginR10
+          // End .form-group
+          .form-group
+            .col-lg-12.clearfix.form-actions
+              .checkbox.left
+                label
+                  | #{error}
+              button#loginBtn.btn.btn-info.right(type='submit')
+                span.icon16.icomoon-icon-enter.white
+                |  登陆
+          // End .form-group
+    // End .container
+    //
+      Le javascript
+      ==================================================
+    script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+    script(type='text/javascript', src='js/bootstrap/bootstrap.js')
+    script(type='text/javascript', src='plugins/forms/validate/jquery.validate.min.js')
+    script(type='text/javascript', src='plugins/forms/uniform/jquery.uniform.min.js')
+    script(type='text/javascript', src='js/login.js')
