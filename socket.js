@@ -73,6 +73,7 @@ module.exports = function(io){
                     xbee.checkUidForGateway();
                     break;
                 case "7"://二维码
+                    xbee.checkQRCodeForGateway();
                 case "8"://门禁
                     break;
                 case "15"://获取自习室座位号
