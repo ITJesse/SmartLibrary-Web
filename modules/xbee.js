@@ -1,7 +1,7 @@
 var mysql = require('../modules/mysql');
 var async = require('async');
 
-var desUtils = require('../modules/des_utils');
+var aesUtils = require('../modules/aes_utils');
 
 function xbee(mac, type, value, socket) {
     this.mac = mac;
@@ -61,7 +61,7 @@ xbee.prototype.checkQRCodeForGateway = function() {
     res.mac = _this.mac;
     res.type = "8";
 
-    var studentId = desUtils.DecryptDES(_this.value, "withelper_itjesse", 0);
+    var studentId = aesUtils.aesDecrypt(_this.value, "itjesse");
     var sql = "SELECT (SUM(`in`) - SUM(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
     mysql.query(sql, function(err, rows) {
         if (err) return console.log(err);
