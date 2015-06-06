@@ -13,6 +13,6 @@ exports.EncryptDES = function(data, key, vi) {
     return data = cipheriv(_crypto.createCipheriv('des', key, vi), 'utf8', data).toString('base64');
 };
 
-exports.DecryptDES: function(data, key, vi) {
+exports.DecryptDES = function(data, key, vi) {
     return cipheriv(_crypto.createDecipheriv('des', key, vi), 'base64', data).toString('utf8');
 };
