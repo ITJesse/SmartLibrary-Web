@@ -1,3 +1,4 @@
+var crypto = require('crypto');s
 var encryptUtils = {};
 
 /**
