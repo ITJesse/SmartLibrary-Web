@@ -1,4 +1,4 @@
-var crypto = require('crypto');s
+var crypto = require('crypto');
 var encryptUtils = {};
 
 /**
