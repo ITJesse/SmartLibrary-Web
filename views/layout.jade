@@ -40,14 +40,20 @@ html
                                 span.icon16.icomoon-icon-screen-2
                                 span.txt  总览
                     ul.nav.navbar-right.usernav
-                        li
-                            a.dropdown-toggle.avatar(href="#", data-toggle="dropdown")
-                                img.image(src="images/avatar.jpg", alt="")
-                                span.txt admin@supr.com
-                        li
-                            a(href="#")
-                                span.icon16.icomoon-icon-exit
-                                span.txt  登出
+                        - if(isLogin)
+                            li
+                                a.dropdown-toggle.avatar(href="#", data-toggle="dropdown")
+                                    img.image(src="images/avatar.jpg", alt="")
+                                    span.txt #{name}
+                            li
+                                a(href="#")
+                                    span.icon16.icomoon-icon-exit
+                                    span.txt  登出
+                        - else
+                            li
+                                a(href="/login")
+                                    span.icon16.icomoon-icon-user
+                                    span.txt  登陆
         #wrapper
             // Responsive navigation button
             .resBtn
@@ -71,14 +77,15 @@ html
                                 a(href="/environment")
                                     span.icon16.icomoon-icon-stats-up
                                     | 环境监测
-                            li
-                                a(href="/security")
-                                    span.icon16.icomoon-icon-table-2
-                                    | 安防监测
-                            li
-                                a(href="/switch")
-                                    span.icon16.icomoon-icon-equalizer-2
-                                    | 开关控制
+                            - if(isAdmin)
+                                li
+                                    a(href="/security")
+                                        span.icon16.icomoon-icon-table-2
+                                        | 安防监测
+                                li
+                                    a(href="/switch")
+                                        span.icon16.icomoon-icon-equalizer-2
+                                        | 开关控制
                     .sidebar-widget(style="margin: -1px 0 0 0;")
                         h5.title(style="margin-bottom:0") 图书相关
 
@@ -88,10 +95,11 @@ html
                                 a(href="/search")
                                     span.icon16.typ-icon-search
                                     | 书籍查询
-                            li
-                                a(href="/borrow")
-                                    span.icon16.iconic-icon-book-alt
-                                    | 借阅查询
+                            - if(isLogin)
+                                li
+                                    a(href="/borrow")
+                                        span.icon16.iconic-icon-book-alt
+                                        | 借阅查询
 
                 .sidebar-widget
                     h5.title 座位占用

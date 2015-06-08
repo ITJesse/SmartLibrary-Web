@@ -4,6 +4,7 @@ var router = express.Router();
 var mysql = require('../modules/mysql');
 
 router.get('/', function(req, res, next) {
+    console.log(req.session.isLogin);
     if (req.session.isLogin) {
         res.redirect('/');
     } else {
@@ -41,6 +42,8 @@ router.post('/', function(req, res) {
                 });
             }else{
                 req.session.isLogin = 1;
+                req.session.isAdmin = rows[0].is_admin;
+                req.session.name = rows[0].name;
                 res.redirect('/');
             }
         }

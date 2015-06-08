@@ -60,8 +60,8 @@ app.get('/Test', function(req, res) {
 });
 
 //Web页面路由
-app.use('/', routes);
 app.use('/login', login);
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

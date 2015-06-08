@@ -1,0 +1,54 @@
+extends layout
+
+block content
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            .row
+                .col-lg-12
+                    .well.well-small
+                        form.form.form-horizontal(action='/search', method='get')
+                            .form-row.row-fluid
+                                .col-lg-12
+                                    .row
+                                        .col-lg-10
+                                            - if(str)
+                                                input.form-control(type='text', name='search', placeholder='请输入如要查询的关键字', value='#{str}')
+                                            - else
+                                                input.form-control(type='text', name='search', placeholder='请输入如要查询的关键字')
+                                        .col-lg-2
+                                            button.btn.btn-default(type='submit')
+                                                span.icon16.icomoon-icon-search-3
+                                                |  查询
+            .row
+                .col-lg-12
+                    - if(data)
+                        table.dynamicTable.display.table.table-bordered(cellpadding="0", cellspacing="0", border="0", width="100%")
+                            thead
+                                tr
+                                    th 书名
+                                    th 作者
+                                    th 出版社
+                                    th 索书号
+                                    th 图书类型
+                            
+                            tbody
+                                - for(var i in data)
+                                    tr
+                                        td #{data[i].title}
+                                        td #{data[i].author}
+                                        td #{data[i].press}
+                                        td #{data[i].callno}
+                                        td #{data[i].type}
+                                        
+                            tfoot
+                                tr
+                                    th 书名
+                                    th 作者
+                                    th 出版社
+                                    th 索书号
+                                    th 图书类型            
+                                
+                
+block footer
+    script(type="text/javascript", src="js/search.js")

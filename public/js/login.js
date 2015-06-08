@@ -29,12 +29,12 @@ $(document).ready(function() {
         },
         messages: {
             username: {
-                required: "Fill me please",
-                minlength: "My name is bigger"
+                required: "请填写学号",
+                minlength: "学号必须大于4位"
             },
             password: {
-                required: "Please provide a password",
-                minlength: "My password is more that 6 chars"
+                required: "请输入密码",
+                minlength: "密码至少6位"
             }
         }
     });
