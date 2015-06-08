@@ -59,7 +59,7 @@ router.get('/GetBookList', function(req, res) {
             for (var i in rows) {
                 tableData.data[i] = [rows[i].title, rows[i].author, rows[i].isbn, rows[i].publisher, moment(rows[i].time).format('YYYY-MM-DD')];
             }
-            result = {error: null, table: tableData};
+            result = tableData;
             return res.json(result);
         }
     });
