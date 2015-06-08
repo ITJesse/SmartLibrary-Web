@@ -136,7 +136,7 @@ router.get('/', function(req, res) {
 
 router.get('/environment', function(req, res, next) {
     var isAdmin = req.session.isAdmin;
-    var sql = "SELECT * FROM xbee_list WHERE is_admin = '" + isAdmin + "' AND type in (1, 2, 3, 12, 13, 14)";
+    var sql = "SELECT * FROM xbee_list WHERE is_admin = '" + isAdmin + "' AND type in (1, 2, 3, 12, 13, 14, 18)";
     mysql.query(sql, function(err, rows) {
         if (err) return console.log(err);
         res.render('environment', {

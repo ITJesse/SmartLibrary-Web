@@ -59,6 +59,7 @@ module.exports = function(io){
                 case "12"://内存
                 case "13"://负载
                 case "14"://CPU温度
+                case "18"://PM2.5
                     xbee.insertSensorsDataIntoDatabase();
                     break;
                 case "4"://烟雾
