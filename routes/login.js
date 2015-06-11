@@ -44,6 +44,7 @@ router.post('/', function(req, res) {
                 req.session.isLogin = 1;
                 req.session.isAdmin = rows[0].is_admin;
                 req.session.name = rows[0].name;
+                req.session.studentId = studentId;
                 res.redirect('/');
             }
         }

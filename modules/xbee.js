@@ -32,24 +32,24 @@ xbee.prototype.checkUidForGateway = function() {
             _this.socket.emit('data', res);
         } else {
             var studentId = rows[0].studentId;
-            // var sql = "SELECT (SUM(`in`) - SUM(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
-            // mysql.query(sql, function(err, rows) {
-            //     if (err) return console.log(err);
-            //     if (!rows[0].check) {
+            var sql = "SELECT (SUM(`in`) - SUM(`out`)) AS `check` FROM student_enter_log WHERE studentId = '" + studentId + "'";
+            mysql.query(sql, function(err, rows) {
+                if (err) return console.log(err);
+                if (!rows[0].check) {
                     res.value = '1';
                     _this.socket.emit('data', res);
 
-            //         //增加入馆记录
-            //         var sql = "INSERT INTO student_enter_log (studentId, `in`, `out`) VALUES ('" + studentId + "', 1, 0)";
-            //         mysql.query(sql, function(err) {
-            //             if (err) return console.log(err);
-            //         });
-            //
-            //     } else {
-            //         res.value = '0';
-            //         _this.socket.emit('data', res);
-            //     }
-            // });
+                    //增加入馆记录
+                    var sql = "INSERT INTO student_enter_log (studentId, `in`, `out`) VALUES ('" + studentId + "', 1, 0)";
+                    mysql.query(sql, function(err) {
+                        if (err) return console.log(err);
+                    });
+
+                } else {
+                    res.value = '0';
+                    _this.socket.emit('data', res);
+                }
+            });
 
         }
     });

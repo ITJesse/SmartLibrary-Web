@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    // Body content
+    #content.clearfix
+        .contentwrapper
+            .row
+                .col-lg-12
+                    - if(data)
+                        table.dynamicTable.display.table.table-bordered(cellpadding="0", cellspacing="0", border="0", width="100%")
+                            thead
+                                tr
+                                    th 书名
+                                    th 作者
+                                    th 出版社
+                                    th 借阅日期
+                                    th 应还日期
+                            
+                            tbody
+                                - if(data.length)
+                                    - for(var i in data)
+                                        tr
+                                            td #{data[i].title}
+                                            td #{data[i].author}
+                                            td #{data[i].press}
+                                            td #{data[i].lendTime}
+                                            td #{data[i].returnTime}
+                                - else
+                                    tr
+                                        td 尚无借阅书籍
+                                        td
+                                        td
+                                        td
+                                        td
+                            tfoot
+                                tr
+                                    th 书名
+                                    th 作者
+                                    th 出版社
+                                    th 索书号
+                                    th 图书类型            
+                                
+                
+block footer
+    script(type="text/javascript", src="js/search.js")
