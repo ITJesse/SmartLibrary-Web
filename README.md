@@ -21,13 +21,13 @@
 
 ### Error code
 
-* -1： 参数不全
-* -2： 接口验证失败
-* -3： 用户名、密码或个人信息错误
-* -4： 用户不存在
-* -5： 服务器错误
-* -6： 借书数量达到上限
-* -7： sessionid为空
-* -8： sessionid无效
-* -9： UID不存在
-* -10： tagId不存在
+* -1： Missing parameter
+* -2： Authentication failed
+* -3： Username, password or user info wrong
+* -4： Username incorrect
+* -5： Server error
+* -6： Reached borrowing limit
+* -7： Missing sessionid
+* -8： Wrong sessionid
+* -9： Wrong UID
+* -10：Wrong tagId
