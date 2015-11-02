@@ -8,7 +8,7 @@
 1. You need a Node.js v0.11.2 installed.
 2. Clone the source code from git.
 3. Run `npm install` under the root of the source code.
-5. Copy and rename the `/modules/config.sample.js` to `/modules/config.js` and do the necessary configure.
+5. Copy and rename the config file `/modules/config.sample.js` and do the necessary configure.
 6. Import the `init.sql` file into the database you configured.
 7. If nothing wrong, you can start the server by samply type `node ./bin/www` and press Enter.
 8. Then you can find your web at `http://127.0.0.1:3000`.
