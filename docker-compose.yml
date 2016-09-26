@@ -1,0 +1,10 @@
+smartlibrary:
+  build: ./
+  external_links:
+  - dao_mysql_1:mysql
+  - dao_mongodb_1:mongodb
+  volumes:
+  - /data/ftpusers/camera:/home/camera
+  ports:
+  - "3000:3000"
+  restart: always
